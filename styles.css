@@ -282,7 +282,7 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    max-height: calc(100% - 100px - 60px); /* Header (~80px) + tabs (~20px) + buttons (60px) */
+    max-height: calc(100vh - 20px - 80px - 40px - 20px - 60px); /* Viewport - top inset - header - tabs - tab margin - button space */
     overflow-y: auto;
     width: 100%;
     padding-right: 10px;
