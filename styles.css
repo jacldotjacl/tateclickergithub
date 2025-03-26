@@ -21,6 +21,7 @@ body {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    position: relative; /* For positioning info button and flyout */
 }
 
 .header {
@@ -52,15 +53,14 @@ button {
     font-size: clamp(14px, 2vw, 20px);
 }
 
-/* Specific styles for the mine button with image */
 #mine-btn {
-    padding: 0;  /* Remove padding since image will dictate size */
-    background: none;  /* Remove background */
-    border: none;  /* Remove border */
+    padding: 0;
+    background: none;
+    border: none;
 }
 
 #mine-btn img {
-    max-width: 200px;  /* Adjust this value as needed */
+    max-width: 200px;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -70,7 +70,6 @@ button:hover:not(:disabled) {
     background-color: #5a5a5a;
 }
 
-/* Prevent hover effect on mine button */
 #mine-btn:hover {
     background: none;
 }
@@ -78,6 +77,40 @@ button:hover:not(:disabled) {
 button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+/* Info button styles */
+#info-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px; /* Slightly smaller */
+    font-size: clamp(12px, 1.5vw, 16px);
+    /* To switch to image later, just uncomment below and adjust: */
+    /* background: url('path-to-image') no-repeat center; */
+    /* padding: 0; */
+    /* width: 40px; */
+    /* height: 40px; */
+}
+
+/* Flyout styles */
+.flyout {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    background-color: #3a3a3a;
+    padding: 15px;
+    border-radius: 10px;
+    transform: translateX(100%); /* Start off-screen */
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    visibility: hidden; /* Hidden by default */
+}
+
+.flyout.active {
+    transform: translateX(0); /* Slide in */
+    opacity: 1;
+    visibility: visible;
 }
 
 .upgrades, .stats {
