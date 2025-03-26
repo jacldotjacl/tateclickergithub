@@ -74,6 +74,8 @@ button {
     padding: 0;
     background: none;
     border: none;
+    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.7); /* Glow effect */
+    border-radius: 50%; /* Circular glow to match central spread */
 }
 
 #mine-btn img {
@@ -88,6 +90,7 @@ button:hover:not(:disabled) {
 
 #mine-btn:hover {
     background: none;
+    box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.9); /* Enhanced glow on hover */
 }
 
 button:disabled {
@@ -116,7 +119,7 @@ button:disabled {
 /* Flyout styles */
 .flyout {
     position: absolute;
-    bottom: 60px;
+    bottom: 70px; /* Moved up slightly above info button (was 60px) */
     right: 20px;
     background-color: #3a3a3a;
     padding: 15px;
