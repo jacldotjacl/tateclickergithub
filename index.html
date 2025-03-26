@@ -10,7 +10,13 @@
     <div class="game-container">
         <div class="header">
             <h1>Space Miner</h1>
-            <div id="resource-count">0 Space Crystals</div>
+            <div class="resource-stats">
+                <div id="resource-count">0 Space Crystals</div>
+                <div class="stats">
+                    <p>Crystals per click: <span id="per-click">1</span></p>
+                    <p>Crystals per second: <span id="per-second">0</span></p>
+                </div>
+            </div>
         </div>
         <div class="content-wrapper">
             <button id="mine-btn">
@@ -27,11 +33,6 @@
             <img src="https://file.garden/ZLvPQieVhBA68hAk/tateclicker/info.png" alt="Info">
         </button>
         <div id="info-flyout" class="flyout">
-            <div class="stats"> <!-- Moved Stats into flyout -->
-                <h2>Stats</h2>
-                <p>Crystals per click: <span id="per-click">1</span></p>
-                <p>Crystals per second: <span id="per-second">0</span></p>
-            </div>
             <button id="reset-btn">Reset Progress</button>
         </div>
     </div>
