@@ -65,8 +65,8 @@ button {
     align-items: center;
     justify-content: space-between;
     position: relative;
-    min-width: 180px; /* Increased for more text space */
-    overflow: hidden; /* Prevent text spillover */
+    min-width: 180px;
+    overflow: visible; /* Allow tooltip to show outside button */
 }
 
 .clicker-area {
@@ -117,7 +117,7 @@ button.purchased {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    flex-shrink: 0; /* Prevent icon shrinking */
+    flex-shrink: 0;
 }
 
 .worker-counter {
@@ -126,16 +126,16 @@ button.purchased {
     background-color: #3a3a3a;
     padding: 2px 8px;
     border-radius: 10px;
-    flex-shrink: 0; /* Prevent counter shrinking */
+    flex-shrink: 0;
 }
 
 /* Text within buttons */
-button span {
-    white-space: nowrap; /* Keep text in one line */
-    overflow: hidden; /* Hide excess text */
-    text-overflow: ellipsis; /* Add ellipsis for long text */
-    flex-grow: 1; /* Allow text to take available space */
-    text-align: left; /* Align text left */
+button span:not(.tooltip) { /* Exclude tooltip spans */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    text-align: left;
 }
 
 /* Tooltip styles */
@@ -147,8 +147,8 @@ button span {
     border-radius: 5px;
     padding: 10px;
     position: absolute;
-    z-index: 1;
-    bottom: 125%;
+    z-index: 20; /* Above everything else */
+    top: -50px; /* Position above button */
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -183,7 +183,7 @@ button:hover .tooltip {
     border-radius: 5px;
     border: none;
     z-index: 10;
-    min-width: 0; /* Override button min-width */
+    min-width: 0;
 }
 
 #info-btn {
@@ -198,7 +198,7 @@ button:hover .tooltip {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: contain; /* Prevent stretching */
+    object-fit: contain;
 }
 
 /* Flyout styles */
@@ -298,19 +298,19 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    height: 100px; /* Fixed height above buttons */
-    width: 80%; /* Slightly narrower for centering */
-    max-width: 600px; /* Cap width to align with tabs */
-    overflow-x: auto; /* Horizontal scrolling */
-    overflow-y: hidden; /* No vertical scrolling */
+    height: 100px;
+    width: 80%;
+    max-width: 600px;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     flex-direction: row;
     gap: 10px;
     padding: 0 10px;
     box-sizing: border-box;
     white-space: nowrap;
-    align-self: center; /* Center within tab-pane */
-    margin-top: 10px; /* Space below h2 */
+    align-self: center;
+    margin-top: 10px;
 }
 
 /* Customize horizontal scrollbar */
