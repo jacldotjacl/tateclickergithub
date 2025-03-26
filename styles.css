@@ -3,21 +3,17 @@ body {
     background-color: #1a1a1a;  /* Black background */
     color: #ffffff;
     margin: 0;
-    padding: 2vh;  /* Add some padding to show black background */
+    padding: 2vh;  /* Equal padding on all sides */
     height: 100vh;
     overflow: hidden;
-    display: flex;  /* Use flex to center the game container */
-    justify-content: center;
-    align-items: center;
 }
 
 .game-container {
-    width: 100%;
-    max-width: 1200px;  /* Limit width but allow full width up to 1200px */
-    height: calc(100vh - 4vh);  /* Account for body padding */
+    width: calc(100% - 4vh);  /* Full width minus left + right padding */
+    height: calc(100vh - 4vh);  /* Full height minus top + bottom padding */
     text-align: center;
     background-color: #2d2d2d;  /* Grey background */
-    padding: 2vh 2vw;
+    padding: 2vh 2vw;  /* Internal padding */
     box-sizing: border-box;
     border-radius: 2vh;  /* Rounded corners */
     display: flex;
