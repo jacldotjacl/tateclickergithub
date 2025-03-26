@@ -13,6 +13,8 @@ const infoFlyout = document.getElementById('info-flyout');
 const resetBtn = document.getElementById('reset-btn');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabPanes = document.querySelectorAll('.tab-pane');
+const snakeBtn = document.getElementById('snake-btn');
+const snakeFlyout = document.getElementById('snake-flyout');
 
 // Update display
 function updateDisplay() {
@@ -106,6 +108,13 @@ function resetGame() {
 // Toggle info flyout
 infoBtn.addEventListener('click', () => {
     infoFlyout.classList.toggle('active');
+    snakeFlyout.classList.remove('active'); // Close snake flyout if open
+});
+
+// Toggle snake flyout
+snakeBtn.addEventListener('click', () => {
+    snakeFlyout.classList.toggle('active');
+    infoFlyout.classList.remove('active'); // Close info flyout if open
 });
 
 // Reset button
@@ -114,11 +123,8 @@ resetBtn.addEventListener('click', resetGame);
 // Tab switching
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // Remove active class from all buttons and panes
         tabButtons.forEach(btn => btn.classList.remove('active'));
         tabPanes.forEach(pane => pane.classList.remove('active'));
-        
-        // Add active class to clicked button and corresponding pane
         button.classList.add('active');
         document.getElementById(button.dataset.tab).classList.add('active');
     });
