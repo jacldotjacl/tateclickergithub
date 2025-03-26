@@ -27,6 +27,7 @@ function updateButtons() {
 mineBtn.addEventListener('click', () => {
     crystals += crystalsPerClick;
     updateDisplay();
+    saveGame(); // Save after each click
 });
 
 // Buy auto miner
@@ -35,6 +36,7 @@ autoMinerBtn.addEventListener('click', () => {
         crystals -= 10;
         crystalsPerSecond += 1;
         updateDisplay();
+        saveGame(); // Save after purchase
     }
 });
 
@@ -44,6 +46,7 @@ drillBtn.addEventListener('click', () => {
         crystals -= 50;
         crystalsPerClick += 5;
         updateDisplay();
+        saveGame(); // Save after purchase
     }
 });
 
@@ -56,9 +59,10 @@ setInterval(() => {
 // Save game state
 function saveGame() {
     const gameState = {
-        crystals,
-        crystalsPerClick,
-        crystalsPerSecond
+        crystals: crystals,
+        crystalsPerClick: crystalsPerClick,
+        crystalsPerSecond: crystalsPerSecond,
+        lastSaved: Date.now()
     };
     localStorage.setItem('spaceMinerSave', JSON.stringify(gameState));
 }
@@ -71,12 +75,25 @@ function loadGame() {
         crystals = gameState.crystals || 0;
         crystalsPerClick = gameState.crystalsPerClick || 1;
         crystalsPerSecond = gameState.crystalsPerSecond || 0;
+        
+        // Calculate offline progress
+        if (gameState.lastSaved) {
+            const timeAway = (Date.now() - gameState.lastSaved) / 1000; // seconds
+            const offlineGains = timeAway * crystalsPerSecond;
+            crystals += offlineGains;
+        }
+        
         updateDisplay();
     }
 }
 
-// Auto-save every 30 seconds
-setInterval(saveGame, 30000);
+// Save when closing tab/window
+window.addEventListener('beforeunload', () => {
+    saveGame();
+});
+
+// Auto-save every 5 seconds
+setInterval(saveGame, 5000);
 
 // Load game on start
 loadGame();
