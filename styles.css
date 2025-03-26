@@ -66,7 +66,7 @@ button {
     justify-content: space-between;
     position: relative;
     min-width: 180px;
-    overflow: visible; /* Allow tooltip to show outside button */
+    overflow: visible;
 }
 
 .clicker-area {
@@ -130,7 +130,7 @@ button.purchased {
 }
 
 /* Text within buttons */
-button span:not(.tooltip) { /* Exclude tooltip spans */
+button span:not(.tooltip) {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -147,8 +147,8 @@ button span:not(.tooltip) { /* Exclude tooltip spans */
     border-radius: 5px;
     padding: 10px;
     position: absolute;
-    z-index: 20; /* Above everything else */
-    top: -50px; /* Position above button */
+    z-index: 100; /* High priority */
+    top: -70px; /* Moved higher to avoid overlap */
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -182,8 +182,7 @@ button:hover .tooltip {
     background: #ffffff;
     border-radius: 5px;
     border: none;
-    z-index: 10;
-    min-width: 0;
+    z-index: 10; /* Keep below tooltip */
 }
 
 #info-btn {
@@ -363,7 +362,7 @@ button:hover .tooltip {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 1000; /* Higher than tooltip */
 }
 
 .modal-content {
