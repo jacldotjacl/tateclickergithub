@@ -2,18 +2,17 @@ body {
     font-family: Arial, sans-serif;
     background-color: #1a1a1a;
     color: #ffffff;
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    padding: 20px;
+    margin: 0;  /* Removed flex properties as they're not needed */
+    padding: 20px 0;  /* Changed to only have top/bottom padding */
 }
 
 .game-container {
-    max-width: 600px;
+    width: 100%;  /* Changed from max-width to full width */
     text-align: center;
     background-color: #2d2d2d;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 0;  /* Removed border-radius since it spans full width */
+    min-height: calc(100vh - 40px);  /* Makes it fill vertical space minus padding */
 }
 
 button {
