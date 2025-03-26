@@ -270,7 +270,7 @@ button:hover .tooltip {
 .tab-pane {
     display: none;
     flex-grow: 1;
-    position: relative; /* Contain scroll area */
+    position: relative;
 }
 
 .tab-pane.active {
@@ -286,11 +286,9 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    position: absolute;
-    top: 60px; /* Below header (~80px) and tabs (~40px), adjusted for spacing */
-    right: 10px; /* Slight offset from edge */
     height: 100px; /* Fixed height above buttons */
-    width: calc(50% - 20px); /* Right half minus padding */
+    width: 80%; /* Slightly narrower for centering */
+    max-width: 600px; /* Cap width to align with tabs */
     overflow-x: auto; /* Horizontal scrolling */
     overflow-y: hidden; /* No vertical scrolling */
     display: flex;
@@ -299,7 +297,8 @@ button:hover .tooltip {
     padding: 0 10px;
     box-sizing: border-box;
     white-space: nowrap;
-    z-index: 5; /* Below buttons but above background */
+    align-self: center; /* Center within tab-pane */
+    margin-top: 10px; /* Space below h2 */
 }
 
 /* Customize horizontal scrollbar */
