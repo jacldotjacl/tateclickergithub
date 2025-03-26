@@ -32,11 +32,11 @@
                 <div class="tab-content">
                     <div id="workers" class="tab-pane active">
                         <h2>Workers</h2>
-                        <button id="auto-miner" disabled>Auto Miner (Cost: 10)</button>
+                        <div id="workers-container"></div> <!-- Dynamic workers -->
                     </div>
                     <div id="upgrades" class="tab-pane">
                         <h2>Upgrades</h2>
-                        <button id="drill" disabled>Drill (Cost: 50)</button>
+                        <div id="upgrades-container"></div> <!-- Dynamic upgrades -->
                     </div>
                 </div>
             </div>
@@ -54,9 +54,9 @@
             <div class="flyout-header">Press ENTER key to play</div>
             <iframe src="https://emulatoros.github.io/gfile/snake/" frameborder="0" allowfullscreen></iframe>
         </div>
-        <div id="offline-earnings-modal" class="modal"> <!-- New modal -->
+        <div id="offline-earnings-modal" class="modal">
             <div class="modal-content">
-                <span id="close-modal" class="close">&times;</span>
+                <span id="close-modal" class="close">×</span>
                 <p>You earned <span id="offline-earnings">0</span> Tatecoins while offline!</p>
             </div>
         </div>
