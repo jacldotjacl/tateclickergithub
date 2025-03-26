@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Miner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Space Miner</h1>
+        <div id="resource-count">0 Space Crystals</div>
+        
+        <button id="mine-btn">Mine Crystal</button>
+        
+        <div class="upgrades">
+            <h2>Upgrades</h2>
+            <button id="auto-miner" disabled>Auto Miner (Cost: 10)</button>
+            <button id="drill" disabled>Drill (Cost: 50)</button>
+        </div>
+        
+        <div class="stats">
+            <h2>Stats</h2>
+            <p>Crystals per click: <span id="per-click">1</span></p>
+            <p>Crystals per second: <span id="per-second">0</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
