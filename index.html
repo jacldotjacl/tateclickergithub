@@ -11,10 +11,10 @@
         <div class="header">
             <h1>Space Miner</h1>
             <div class="resource-stats">
-                <div id="resource-count">0 Tatecoins</div> <!-- Changed to Tatecoins -->
+                <div id="resource-count">0 Tatecoins</div>
                 <div class="stats">
-                    <p>Tatecoins per click: <span id="per-click">1</span></p> <!-- Updated -->
-                    <p>Tatecoins per second: <span id="per-second">0</span></p> <!-- Updated -->
+                    <p>Tatecoins per click: <span id="per-click">1</span></p>
+                    <p>Tatecoins per second: <span id="per-second">0</span></p>
                 </div>
             </div>
         </div>
@@ -24,10 +24,21 @@
                     <img src="https://file.garden/ZLvPQieVhBA68hAk/tateclicker/tatebutton" alt="Mine Tatecoins">
                 </button>
             </div>
-            <div class="upgrades">
-                <h2>Workers</h2>
-                <button id="auto-miner" disabled>Auto Miner (Cost: 10)</button>
-                <button id="drill" disabled>Drill (Cost: 50)</button>
+            <div class="menu">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="workers">Workers</button>
+                    <button class="tab-btn" data-tab="upgrades">Upgrades</button>
+                </div>
+                <div class="tab-content">
+                    <div id="workers" class="tab-pane active">
+                        <h2>Workers</h2>
+                        <button id="auto-miner" disabled>Auto Miner (Cost: 10)</button>
+                    </div>
+                    <div id="upgrades" class="tab-pane">
+                        <h2>Upgrades</h2>
+                        <button id="drill" disabled>Drill (Cost: 50)</button>
+                    </div>
+                </div>
             </div>
         </div>
         <button id="info-btn">
