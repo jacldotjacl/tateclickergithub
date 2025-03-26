@@ -59,6 +59,9 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: clamp(14px, 2vw, 20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .clicker-area {
@@ -99,11 +102,24 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Greyed-out purchased upgrades */
 button.purchased {
     background-color: #333333;
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.worker-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.worker-counter {
+    margin-left: 10px;
+    font-size: clamp(12px, 1.5vw, 16px);
+    background-color: #3a3a3a;
+    padding: 2px 8px;
+    border-radius: 10px;
 }
 
 /* Info and Snake button styles */
