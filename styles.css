@@ -99,6 +99,13 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Greyed-out purchased upgrades */
+button.purchased {
+    background-color: #333333;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Info and Snake button styles */
 #info-btn, #snake-btn {
     position: absolute;
@@ -283,7 +290,7 @@ button:disabled {
     font-size: 20px;
     font-weight: bold;
     pointer-events: none;
-    transform: translate(-50%, -50%); /* Center text at cursor */
+    transform: translate(-50%, -50%);
     animation: flyOut 0.8s ease-out forwards;
 }
 
@@ -294,6 +301,16 @@ button:disabled {
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -100px); /* Adjust final position */
+        transform: translate(-50%, -100px);
     }
+}
+
+/* Checkbox styles */
+.show-purchased {
+    margin-top: 10px;
+    font-size: clamp(12px, 1.5vw, 16px);
+}
+
+.show-purchased input[type="checkbox"] {
+    margin-right: 5px;
 }
