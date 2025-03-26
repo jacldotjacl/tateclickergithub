@@ -62,14 +62,12 @@ button {
 }
 
 .clicker-area {
-    position: absolute; /* Changed to absolute for precise positioning */
-    top: 50%; /* Center vertically in game-container */
-    transform: translateY(-50%); /* Offset by half its height */
-    left: 20px; /* Match container padding */
-    width: 50%; /* Still takes left half horizontally */
+    flex: 1;
     display: flex;
-    justify-content: center; /* Center button horizontally within this area */
-    height: auto; /* Let content dictate height */
+    justify-content: center; /* Center horizontally within left half */
+    align-items: center; /* Center vertically */
+    width: 50%; /* Left half */
+    height: 100%; /* Ensure it takes full height of content-wrapper */
 }
 
 #mine-btn {
@@ -142,7 +140,6 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 50%; /* Push to right half */
 }
 
 .upgrades h2 {
@@ -169,5 +166,4 @@ button:disabled {
     flex-direction: row;
     overflow-y: auto;
     max-height: calc(100% - 100px);
-    position: relative; /* For absolute positioning of clicker-area */
 }
