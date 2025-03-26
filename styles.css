@@ -232,7 +232,8 @@ button:hover .tooltip {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Changed from center to give tabs room */
+    padding-top: 10px; /* Add padding to push tabs down */
 }
 
 .tab-buttons {
@@ -240,6 +241,7 @@ button:hover .tooltip {
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
+    flex-shrink: 0; /* Prevent tabs from shrinking */
 }
 
 .tab-btn {
@@ -276,9 +278,9 @@ button:hover .tooltip {
 
 #workers-container, #upgrades-container {
     max-height: calc(100% - 60px - 40px - 20px); /* Total height - header - buttons - padding */
-    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-y: auto;
     width: 100%;
-    padding-right: 10px; /* Prevent scrollbar overlap with content */
+    padding-right: 10px;
     box-sizing: border-box;
 }
 
@@ -319,8 +321,8 @@ button:hover .tooltip {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
-    overflow-y: hidden; /* Prevent wrapper from scrolling */
-    max-height: calc(100% - 60px); /* Adjust for header height */
+    overflow-y: hidden;
+    max-height: calc(100% - 80px); /* Adjusted for header + extra padding */
 }
 
 /* Modal styles */
