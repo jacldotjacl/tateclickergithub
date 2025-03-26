@@ -176,8 +176,8 @@ function resetGame() {
 // Load workers and upgrades from JSON files
 async function loadWorkersAndUpgrades() {
     try {
-        const workersUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/workers.json';
-        const upgradesUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/upgrades.json';
+        const workersUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/workers.json';
+        const upgradesUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/upgrades.json';
 
         // Fetch workers
         const workersResponse = await fetch(workersUrl);
