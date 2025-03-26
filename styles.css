@@ -22,6 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative; /* Ensure absolute positioning is relative to this */
 }
 
 .header {
@@ -62,12 +63,17 @@ button {
 }
 
 .clicker-area {
-    flex: 1;
+    position: absolute;
+    top: 50%; /
+
+/* transform: translateY(-50%) translateX(-50%); Offset vertically and horizontally */
+    left: 25%; /* 25% from left edge */
+    transform: translate(-50%, -50%); /* Center horizontally within its own width, vertically in middle */
+    width: auto; /* Let button dictate width */
+    height: auto;
     display: flex;
-    justify-content: center; /* Center horizontally within left half */
-    align-items: center; /* Center vertically */
-    width: 50%; /* Left half */
-    height: 100%; /* Ensure it takes full height of content-wrapper */
+    justify-content: center;
+    align-items: center;
 }
 
 #mine-btn {
@@ -140,6 +146,7 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 50%; /* Keep upgrades in right half */
 }
 
 .upgrades h2 {
