@@ -74,8 +74,8 @@ button {
     padding: 0;
     background: none;
     border: none;
-    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5); /* White glow, larger spread */
-    border-radius: 50%; /* Keep circular shape */
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
 }
 
 #mine-btn img {
@@ -90,7 +90,7 @@ button:hover:not(:disabled) {
 
 #mine-btn:hover {
     background: none;
-    box-shadow: 0 0 25px 12px rgba(255, 255, 255, 0.7); /* Enhanced white glow on hover */
+    box-shadow: 0 0 25px 12px rgba(255, 255, 255, 0.7);
 }
 
 button:disabled {
@@ -98,11 +98,10 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Info button styles */
-#info-btn {
+/* Info and Snake button styles */
+#info-btn, #snake-btn {
     position: absolute;
     bottom: 20px;
-    right: 20px;
     width: 40px;
     height: 40px;
     padding: 0;
@@ -110,7 +109,15 @@ button:disabled {
     border: none;
 }
 
-#info-btn img {
+#info-btn {
+    right: 20px;
+}
+
+#snake-btn {
+    right: 70px; /* Positioned 50px left of info button (40px width + 10px gap) */
+}
+
+#info-btn img, #snake-btn img {
     width: 100%;
     height: 100%;
     display: block;
@@ -129,7 +136,7 @@ button:disabled {
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     visibility: hidden;
     min-width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Added drop shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .flyout.active {
