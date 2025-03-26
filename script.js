@@ -29,6 +29,7 @@ function updateDisplay() {
     perSecondDisplay.textContent = tatecoinsPerSecond;
     updateButtons();
     updateWorkerCounters();
+    updateWorkerTooltips();
 }
 
 // Update button states
@@ -51,6 +52,29 @@ function updateWorkerCounters() {
             btn.appendChild(counter);
         }
         counter.textContent = count;
+    });
+}
+
+// Update worker tooltips
+function updateWorkerTooltips() {
+    document.querySelectorAll('#workers-container button').forEach(btn => {
+        const workerId = btn.id;
+        const worker = workers[workerId];
+        if (worker && worker.description) {
+            let tooltip = btn.querySelector('.tooltip');
+            if (!tooltip) {
+                tooltip = document.createElement('div');
+                tooltip.classList.add('tooltip');
+                btn.appendChild(tooltip);
+            }
+            let earnings = worker.baseValue;
+            for (const upgrade of Object.values(upgrades)) {
+                if (upgrade.effect.type === 'workerMultiplier' && upgrade.effect.workerId === workerId) {
+                    earnings *= upgrade.effect.value;
+                }
+            }
+            tooltip.innerHTML = `<p class="earnings">${earnings} Tatecoins/sec</p><p>${worker.description}</p>`;
+        }
     });
 }
 
@@ -152,8 +176,8 @@ function resetGame() {
 // Load workers and upgrades from JSON files
 async function loadWorkersAndUpgrades() {
     try {
-        const workersUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/workers.json';
-        const upgradesUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/upgrades.json';
+        const workersUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/workers.json';
+        const upgradesUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/upgrades.json';
 
         // Fetch workers
         const workersResponse = await fetch(workersUrl);
@@ -161,13 +185,16 @@ async function loadWorkersAndUpgrades() {
         workersContainer.innerHTML = '';
         workerData.forEach(worker => {
             if (!workers[worker.id]) {
-                workers[worker.id] = { count: 0, baseValue: worker.effect.type === 'perSecond' ? worker.effect.value : 0 };
+                workers[worker.id] = {
+                    count: 0,
+                    baseValue: worker.effect.type === 'perSecond' ? worker.effect.value : 0,
+                    description: worker.description || ''
+                };
             }
             const btn = document.createElement('button');
             btn.id = worker.id;
             btn.dataset.cost = worker.cost;
 
-            // Add icon if present
             if (worker.icon) {
                 const img = document.createElement('img');
                 img.src = worker.icon;
@@ -175,16 +202,22 @@ async function loadWorkersAndUpgrades() {
                 btn.appendChild(img);
             }
 
-            // Add name
             const nameSpan = document.createElement('span');
             nameSpan.textContent = `${worker.name} (Cost: ${worker.cost})`;
             btn.appendChild(nameSpan);
 
-            // Add counter
             const counter = document.createElement('span');
             counter.classList.add('worker-counter');
             counter.textContent = workers[worker.id].count;
             btn.appendChild(counter);
+
+            if (worker.description) {
+                const tooltip = document.createElement('div');
+                tooltip.classList.add('tooltip');
+                let earnings = worker.effect.value;
+                tooltip.innerHTML = `<p class="earnings">${earnings} Tatecoins/sec</p><p>${worker.description}</p>`;
+                btn.appendChild(tooltip);
+            }
 
             btn.addEventListener('click', () => buyWorker(worker));
             workersContainer.appendChild(btn);
@@ -205,6 +238,12 @@ async function loadWorkersAndUpgrades() {
                 btn.style.display = showPurchasedUpgrades.checked ? 'block' : 'none';
             } else {
                 btn.addEventListener('click', () => buyUpgrade(upgrade, btn));
+            }
+            if (upgrade.description) {
+                const tooltip = document.createElement('div');
+                tooltip.classList.add('tooltip');
+                tooltip.innerHTML = `<p>${upgrade.description}</p>`;
+                btn.appendChild(tooltip);
             }
             upgradesContainer.appendChild(btn);
         });
