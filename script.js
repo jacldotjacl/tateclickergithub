@@ -106,15 +106,35 @@ function resetGame() {
 }
 
 // Toggle info flyout
-infoBtn.addEventListener('click', () => {
+infoBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent click from closing immediately
     infoFlyout.classList.toggle('active');
-    snakeFlyout.classList.remove('active'); // Close snake flyout if open
+    snakeFlyout.classList.remove('active');
 });
 
 // Toggle snake flyout
-snakeBtn.addEventListener('click', () => {
+snakeBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent click from closing immediately
     snakeFlyout.classList.toggle('active');
-    infoFlyout.classList.remove('active'); // Close info flyout if open
+    infoFlyout.classList.remove('active');
+});
+
+// Close flyouts when clicking outside
+document.addEventListener('click', (e) => {
+    if (!infoFlyout.contains(e.target) && !infoBtn.contains(e.target) &&
+        !snakeFlyout.contains(e.target) && !snakeBtn.contains(e.target)) {
+        infoFlyout.classList.remove('active');
+        snakeFlyout.classList.remove('active');
+    }
+});
+
+// Prevent clicks inside flyouts from closing them
+infoFlyout.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+snakeFlyout.addEventListener('click', (e) => {
+    e.stopPropagation();
 });
 
 // Reset button
