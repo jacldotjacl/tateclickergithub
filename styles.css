@@ -68,6 +68,7 @@ button {
     align-items: center;
     width: 50%;
     height: 100%;
+    position: relative; /* For positioning click text */
 }
 
 #mine-btn {
@@ -245,7 +246,7 @@ button:disabled {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
@@ -272,5 +273,26 @@ button:disabled {
 }
 
 .close:hover {
-    color: #ff5555; /* Red on hover */
+    color: #ff5555;
+}
+
+/* Click text animation */
+.click-text {
+    position: absolute;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    pointer-events: none; /* Prevents interference with clicks */
+    animation: flyOut 0.8s ease-out forwards;
+}
+
+@keyframes flyOut {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(0, -50px); /* Flies upward */
+    }
 }
