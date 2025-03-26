@@ -52,8 +52,27 @@ button {
     font-size: clamp(14px, 2vw, 20px);
 }
 
+/* Specific styles for the mine button with image */
+#mine-btn {
+    padding: 0;  /* Remove padding since image will dictate size */
+    background: none;  /* Remove background */
+    border: none;  /* Remove border */
+}
+
+#mine-btn img {
+    max-width: 200px;  /* Adjust this value as needed */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 button:hover:not(:disabled) {
     background-color: #5a5a5a;
+}
+
+/* Prevent hover effect on mine button */
+#mine-btn:hover {
+    background: none;
 }
 
 button:disabled {
