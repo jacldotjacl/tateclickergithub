@@ -33,11 +33,31 @@ function updateButtons() {
     drillBtn.disabled = tatecoins < 50;
 }
 
-// Mine manually
-mineBtn.addEventListener('click', () => {
+// Mine manually with click text
+mineBtn.addEventListener('click', (e) => {
     tatecoins += tatecoinsPerClick;
     updateDisplay();
     saveGame();
+
+    // Create click text
+    const clickText = document.createElement('div');
+    clickText.classList.add('click-text');
+    clickText.textContent = 'Click!';
+    
+    // Position at cursor
+    const rect = mineBtn.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    clickText.style.left = `${x}px`;
+    clickText.style.top = `${y}px`;
+    
+    // Append to clicker-area
+    mineBtn.parentElement.appendChild(clickText);
+    
+    // Remove after animation
+    clickText.addEventListener('animationend', () => {
+        clickText.remove();
+    });
 });
 
 // Buy auto miner
@@ -92,7 +112,7 @@ function loadGame() {
             if (offlineGains > 0) {
                 tatecoins += offlineGains;
                 offlineEarningsDisplay.textContent = Math.floor(offlineGains);
-                offlineEarningsModal.style.display = 'block'; // Show modal
+                offlineEarningsModal.style.display = 'block';
             }
         }
         
