@@ -27,7 +27,7 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Changed to align top */
     margin-bottom: 20px;
     flex-shrink: 0;
 }
@@ -38,9 +38,16 @@ body {
     text-align: left;
 }
 
+.resource-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align right */
+}
+
 #resource-count {
     font-size: clamp(1.2rem, 2.5vw, 2rem);
     text-align: right;
+    margin-bottom: 10px; /* Space between counter and stats */
 }
 
 button {
@@ -110,10 +117,7 @@ button:disabled {
     opacity: 0;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     visibility: hidden;
-    min-width: 200px; /* Ensure enough space for content */
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between stats and reset button */
+    min-width: 200px;
 }
 
 .flyout.active {
@@ -131,17 +135,17 @@ button:disabled {
 }
 
 .stats {
-    margin: 0; /* Adjusted since it's now in flyout */
+    margin: 0; /* No extra margins since it's in header */
 }
 
 .stats h2 {
-    font-size: clamp(1rem, 2.5vw, 1.5rem); /* Slightly smaller in flyout */
-    margin: 0 0 10px 0;
+    display: none; /* Remove "Stats" title since it's under resource count */
 }
 
 .stats p {
-    font-size: clamp(0.8rem, 2vw, 1rem); /* Adjusted for flyout */
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Slightly smaller to fit */
     margin: 5px 0;
+    text-align: right;
 }
 
 .content-wrapper {
@@ -150,5 +154,5 @@ button:disabled {
     flex-direction: column;
     justify-content: center;
     overflow-y: auto;
-    max-height: calc(100% - 60px);
+    max-height: calc(100% - 100px); /* Increased to account for taller header */
 }
