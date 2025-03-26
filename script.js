@@ -15,6 +15,9 @@ const tabButtons = document.querySelectorAll('.tab-btn');
 const tabPanes = document.querySelectorAll('.tab-pane');
 const snakeBtn = document.getElementById('snake-btn');
 const snakeFlyout = document.getElementById('snake-flyout');
+const offlineEarningsModal = document.getElementById('offline-earnings-modal');
+const offlineEarningsDisplay = document.getElementById('offline-earnings');
+const closeModal = document.getElementById('close-modal');
 
 // Update display
 function updateDisplay() {
@@ -86,7 +89,11 @@ function loadGame() {
         if (gameState.lastSaved) {
             const timeAway = (Date.now() - gameState.lastSaved) / 1000;
             const offlineGains = timeAway * tatecoinsPerSecond;
-            tatecoins += offlineGains;
+            if (offlineGains > 0) {
+                tatecoins += offlineGains;
+                offlineEarningsDisplay.textContent = Math.floor(offlineGains);
+                offlineEarningsModal.style.display = 'block'; // Show modal
+            }
         }
         
         updateDisplay();
@@ -107,14 +114,14 @@ function resetGame() {
 
 // Toggle info flyout
 infoBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent click from closing immediately
+    e.stopPropagation();
     infoFlyout.classList.toggle('active');
     snakeFlyout.classList.remove('active');
 });
 
 // Toggle snake flyout
 snakeBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent click from closing immediately
+    e.stopPropagation();
     snakeFlyout.classList.toggle('active');
     infoFlyout.classList.remove('active');
 });
@@ -135,6 +142,11 @@ infoFlyout.addEventListener('click', (e) => {
 
 snakeFlyout.addEventListener('click', (e) => {
     e.stopPropagation();
+});
+
+// Close modal
+closeModal.addEventListener('click', () => {
+    offlineEarningsModal.style.display = 'none';
 });
 
 // Reset button
