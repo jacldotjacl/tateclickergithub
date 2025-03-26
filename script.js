@@ -1,11 +1,11 @@
 let tatecoins = 0;
 let tatecoinsPerClick = 1;
 let tatecoinsPerSecond = 0;
+let workers = {}; // Tracks worker counts and base values
+let upgrades = {}; // Tracks purchased upgrades
 
 const resourceCount = document.getElementById('resource-count');
 const mineBtn = document.getElementById('mine-btn');
-const autoMinerBtn = document.getElementById('auto-miner');
-const drillBtn = document.getElementById('drill');
 const perClickDisplay = document.getElementById('per-click');
 const perSecondDisplay = document.getElementById('per-second');
 const infoBtn = document.getElementById('info-btn');
@@ -18,6 +18,8 @@ const snakeFlyout = document.getElementById('snake-flyout');
 const offlineEarningsModal = document.getElementById('offline-earnings-modal');
 const offlineEarningsDisplay = document.getElementById('offline-earnings');
 const closeModal = document.getElementById('close-modal');
+const workersContainer = document.getElementById('workers-container');
+const upgradesContainer = document.getElementById('upgrades-container');
 
 // Update display
 function updateDisplay() {
@@ -29,8 +31,24 @@ function updateDisplay() {
 
 // Update button states
 function updateButtons() {
-    autoMinerBtn.disabled = tatecoins < 10;
-    drillBtn.disabled = tatecoins < 50;
+    document.querySelectorAll('#workers-container button, #upgrades-container button').forEach(btn => {
+        const cost = parseInt(btn.dataset.cost);
+        btn.disabled = tatecoins < cost;
+    });
+}
+
+// Calculate total Tatecoins per second
+function calculatePerSecond() {
+    tatecoinsPerSecond = 0;
+    for (const [id, worker] of Object.entries(workers)) {
+        let multiplier = 1;
+        for (const upgrade of Object.values(upgrades)) {
+            if (upgrade.effect.type === 'workerMultiplier' && upgrade.effect.workerId === id) {
+                multiplier *= upgrade.effect.value;
+            }
+        }
+        tatecoinsPerSecond += worker.baseValue * worker.count * multiplier;
+    }
 }
 
 // Mine manually with click text
@@ -39,46 +57,17 @@ mineBtn.addEventListener('click', (e) => {
     updateDisplay();
     saveGame();
 
-    // Create click text
     const clickText = document.createElement('div');
     clickText.classList.add('click-text');
     clickText.textContent = 'Click!';
-    
-    // Position at cursor relative to clicker-area
     const clickerArea = mineBtn.parentElement;
     const rect = clickerArea.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     clickText.style.left = `${x}px`;
     clickText.style.top = `${y}px`;
-    
-    // Append to clicker-area
     clickerArea.appendChild(clickText);
-    
-    // Remove after animation
-    clickText.addEventListener('animationend', () => {
-        clickText.remove();
-    });
-});
-
-// Buy auto miner
-autoMinerBtn.addEventListener('click', () => {
-    if (tatecoins >= 10) {
-        tatecoins -= 10;
-        tatecoinsPerSecond += 1;
-        updateDisplay();
-        saveGame();
-    }
-});
-
-// Buy drill
-drillBtn.addEventListener('click', () => {
-    if (tatecoins >= 50) {
-        tatecoins -= 50;
-        tatecoinsPerClick += 5;
-        updateDisplay();
-        saveGame();
-    }
+    clickText.addEventListener('animationend', () => clickText.remove());
 });
 
 // Auto mining
@@ -92,7 +81,8 @@ function saveGame() {
     const gameState = {
         tatecoins: tatecoins,
         tatecoinsPerClick: tatecoinsPerClick,
-        tatecoinsPerSecond: tatecoinsPerSecond,
+        workers: workers,
+        upgrades: upgrades,
         lastSaved: Date.now()
     };
     localStorage.setItem('spaceMinerSave', JSON.stringify(gameState));
@@ -105,7 +95,8 @@ function loadGame() {
         const gameState = JSON.parse(savedState);
         tatecoins = gameState.tatecoins || 0;
         tatecoinsPerClick = gameState.tatecoinsPerClick || 1;
-        tatecoinsPerSecond = gameState.tatecoinsPerSecond || 0;
+        workers = gameState.workers || {};
+        upgrades = gameState.upgrades || {};
         
         if (gameState.lastSaved) {
             const timeAway = (Date.now() - gameState.lastSaved) / 1000;
@@ -117,8 +108,10 @@ function loadGame() {
             }
         }
         
+        calculatePerSecond();
         updateDisplay();
     }
+    loadWorkersAndUpgrades();
 }
 
 // Reset game
@@ -126,10 +119,80 @@ function resetGame() {
     if (confirm('Are you sure you want to reset all progress?')) {
         tatecoins = 0;
         tatecoinsPerClick = 1;
-        tatecoinsPerSecond = 0;
-        localStorage.removeItem('spaceMinerSave');
+        workers = {};
+        upgrades = {};
+        calculatePerSecond();
         updateDisplay();
         infoFlyout.classList.remove('active');
+        loadWorkersAndUpgrades();
+    }
+}
+
+// Load workers and upgrades from JSON files
+async function loadWorkersAndUpgrades() {
+    try {
+        const workersUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/workers.json';
+        const upgradesUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/upgrades.json';
+
+        // Fetch workers
+        const workersResponse = await fetch(workersUrl);
+        const workerData = await workersResponse.json();
+        workersContainer.innerHTML = '';
+        workerData.forEach(worker => {
+            if (!workers[worker.id]) {
+                workers[worker.id] = { count: 0, baseValue: worker.effect.type === 'perSecond' ? worker.effect.value : 0 };
+            }
+            const btn = document.createElement('button');
+            btn.id = worker.id;
+            btn.textContent = `${worker.name} (Cost: ${worker.cost})`;
+            btn.dataset.cost = worker.cost;
+            btn.addEventListener('click', () => buyWorker(worker));
+            workersContainer.appendChild(btn);
+        });
+
+        // Fetch upgrades
+        const upgradesResponse = await fetch(upgradesUrl);
+        const upgradeData = await upgradesResponse.json();
+        upgradesContainer.innerHTML = '';
+        upgradeData.forEach(upgrade => {
+            const btn = document.createElement('button');
+            btn.id = upgrade.id;
+            btn.textContent = `${upgrade.name} (Cost: ${upgrade.cost})`;
+            btn.dataset.cost = upgrade.cost;
+            btn.addEventListener('click', () => buyUpgrade(upgrade));
+            upgradesContainer.appendChild(btn);
+        });
+
+        calculatePerSecond();
+        updateButtons();
+    } catch (error) {
+        console.error('Error loading workers/upgrades:', error);
+    }
+}
+
+// Buy worker
+function buyWorker(worker) {
+    if (tatecoins >= worker.cost) {
+        tatecoins -= worker.cost;
+        workers[worker.id].count++;
+        calculatePerSecond();
+        updateDisplay();
+        saveGame();
+    }
+}
+
+// Buy upgrade
+function buyUpgrade(upgrade) {
+    if (tatecoins >= upgrade.cost && !upgrades[upgrade.id]) { // Prevent buying twice
+        tatecoins -= upgrade.cost;
+        upgrades[upgrade.id] = upgrade;
+        if (upgrade.effect.type === 'perClick') {
+            tatecoinsPerClick += upgrade.effect.value;
+        } else if (upgrade.effect.type === 'workerMultiplier') {
+            calculatePerSecond(); // Recalculate with new multiplier
+        }
+        updateDisplay();
+        saveGame();
     }
 }
 
@@ -157,13 +220,8 @@ document.addEventListener('click', (e) => {
 });
 
 // Prevent clicks inside flyouts from closing them
-infoFlyout.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
-
-snakeFlyout.addEventListener('click', (e) => {
-    e.stopPropagation();
-});
+infoFlyout.addEventListener('click', (e) => e.stopPropagation());
+snakeFlyout.addEventListener('click', (e) => e.stopPropagation());
 
 // Close modal
 closeModal.addEventListener('click', () => {
@@ -184,9 +242,7 @@ tabButtons.forEach(button => {
 });
 
 // Save when closing tab/window
-window.addEventListener('beforeunload', () => {
-    saveGame();
-});
+window.addEventListener('beforeunload', saveGame);
 
 // Auto-save every 5 seconds
 setInterval(saveGame, 5000);
