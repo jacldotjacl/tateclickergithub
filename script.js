@@ -11,10 +11,12 @@ const perSecondDisplay = document.getElementById('per-second');
 const infoBtn = document.getElementById('info-btn');
 const infoFlyout = document.getElementById('info-flyout');
 const resetBtn = document.getElementById('reset-btn');
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanes = document.querySelectorAll('.tab-pane');
 
 // Update display
 function updateDisplay() {
-    resourceCount.textContent = Math.floor(tatecoins) + ' Tatecoins'; // Already correct here
+    resourceCount.textContent = Math.floor(tatecoins) + ' Tatecoins';
     perClickDisplay.textContent = tatecoinsPerClick;
     perSecondDisplay.textContent = tatecoinsPerSecond;
     updateButtons();
@@ -108,6 +110,19 @@ infoBtn.addEventListener('click', () => {
 
 // Reset button
 resetBtn.addEventListener('click', resetGame);
+
+// Tab switching
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove active class from all buttons and panes
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+        
+        // Add active class to clicked button and corresponding pane
+        button.classList.add('active');
+        document.getElementById(button.dataset.tab).classList.add('active');
+    });
+});
 
 // Save when closing tab/window
 window.addEventListener('beforeunload', () => {
