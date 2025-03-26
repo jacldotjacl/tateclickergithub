@@ -62,11 +62,12 @@ button {
 }
 
 .clicker-area {
-    flex: 1; /* Take available vertical space */
+    flex: 1;
     display: flex;
-    justify-content: flex-start; /* Align left */
+    justify-content: center; /* Center horizontally within its area */
     align-items: center; /* Center vertically */
-    padding-left: 20px; /* Small offset from left edge */
+    width: 50%; /* Take left half of content-wrapper */
+    margin-right: auto; /* Push upgrades to the right */
 }
 
 #mine-btn {
@@ -135,6 +136,10 @@ button:disabled {
 
 .upgrades {
     margin: 20px 0;
+    flex: 1; /* Take remaining space on right */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .upgrades h2 {
@@ -158,7 +163,7 @@ button:disabled {
 .content-wrapper {
     flex-grow: 1;
     display: flex;
-    flex-direction: row; /* Changed to row for side-by-side layout */
+    flex-direction: row;
     overflow-y: auto;
     max-height: calc(100% - 100px);
 }
