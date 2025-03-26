@@ -68,7 +68,7 @@ button {
     align-items: center;
     width: 50%;
     height: 100%;
-    position: relative; /* For positioning click text */
+    position: relative;
 }
 
 #mine-btn {
@@ -282,17 +282,18 @@ button:disabled {
     color: #ffffff;
     font-size: 20px;
     font-weight: bold;
-    pointer-events: none; /* Prevents interference with clicks */
+    pointer-events: none;
+    transform: translate(-50%, -50%); /* Center text at cursor */
     animation: flyOut 0.8s ease-out forwards;
 }
 
 @keyframes flyOut {
     0% {
         opacity: 1;
-        transform: translate(0, 0);
+        transform: translate(-50%, -50%);
     }
     100% {
         opacity: 0;
-        transform: translate(0, -50px); /* Flies upward */
+        transform: translate(-50%, -100px); /* Adjust final position */
     }
 }
