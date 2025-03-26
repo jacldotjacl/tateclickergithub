@@ -21,7 +21,7 @@ body {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Prevent internal overflow */
+    overflow: hidden;
 }
 
 .header {
@@ -29,7 +29,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    flex-shrink: 0; /* Prevent header from shrinking */
+    flex-shrink: 0;
 }
 
 .header h1 {
@@ -85,8 +85,17 @@ button:disabled {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    padding: 8px 16px;
-    font-size: clamp(12px, 1.5vw, 16px);
+    width: 40px; /* Square size, roughly matches previous button */
+    height: 40px;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+#info-btn img {
+    width: 100%; /* Scales image to fit button */
+    height: 100%;
+    display: block;
 }
 
 /* Flyout styles */
@@ -126,6 +135,6 @@ button:disabled {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow-y: auto; /* Allow scrolling within content if needed */
-    max-height: calc(100% - 60px); /* Adjust for header height */
+    overflow-y: auto;
+    max-height: calc(100% - 60px);
 }
