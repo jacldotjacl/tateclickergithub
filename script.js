@@ -46,7 +46,8 @@ function updateWorkerCounters() {
         const workerId = btn.id;
         const worker = workers[workerId];
         const count = worker?.count || 0;
-        const baseCost = worker?.baseCost || parseInt(btn.dataset.baseCost);
+        const baseCost = parseInt(btn.dataset.baseCost);
+        const name = btn.dataset.name;
         const currentCost = Math.round(baseCost * Math.pow(1.15, count));
         
         let counter = btn.querySelector('.worker-counter');
@@ -58,7 +59,9 @@ function updateWorkerCounters() {
         counter.textContent = count;
 
         const nameSpan = btn.querySelector('.name-span');
-        nameSpan.textContent = `${worker.name} (Cost: ${currentCost})`;
+        if (nameSpan) {
+            nameSpan.textContent = `${name} (Cost: ${currentCost})`;
+        }
         btn.dataset.cost = currentCost;
     });
 }
@@ -197,14 +200,15 @@ async function loadWorkersAndUpgrades() {
                     count: 0,
                     baseValue: worker.effect.type === 'perSecond' ? worker.effect.value : 0,
                     description: worker.description || '',
-                    baseCost: worker.cost, // Store initial cost
-                    name: worker.name // Store name for display
+                    baseCost: worker.cost,
+                    name: worker.name
                 };
             }
             const btn = document.createElement('button');
             btn.id = worker.id;
-            btn.dataset.baseCost = worker.cost; // Store base cost in dataset
-            btn.dataset.cost = worker.cost; // Initial cost
+            btn.dataset.baseCost = worker.cost;
+            btn.dataset.cost = worker.cost;
+            btn.dataset.name = worker.name; // Store name in dataset
 
             if (worker.icon) {
                 const img = document.createElement('img');
