@@ -3,19 +3,22 @@ body {
     background-color: #1a1a1a;  /* Black background */
     color: #ffffff;
     margin: 0;
-    padding: 2vh;  /* Equal padding on all sides */
     height: 100vh;
     overflow: hidden;
+    position: relative;  /* For absolute positioning of container */
 }
 
 .game-container {
-    width: calc(100% - 4vh);  /* Full width minus left + right padding */
-    height: calc(100vh - 4vh);  /* Full height minus top + bottom padding */
+    position: absolute;
+    top: 20px;      /* Equal padding on all sides */
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
     text-align: center;
     background-color: #2d2d2d;  /* Grey background */
-    padding: 2vh;  /* Changed to 2vh all around (was 2vh 2vw) */
+    padding: 20px;  /* Internal padding */
     box-sizing: border-box;
-    border-radius: 2vh;  /* Rounded corners */
+    border-radius: 20px;  /* Rounded corners */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,12 +26,12 @@ body {
 
 /* Scale buttons based on screen size */
 button {
-    padding: 1vh 2vh;  /* Changed horizontal padding to 2vh (was 2vw) */
-    margin: 0.5vh;
+    padding: 10px 20px;  /* Fixed pixel values */
+    margin: 5px;
     background-color: #4a4a4a;
     color: white;
     border: none;
-    border-radius: 0.5vh;
+    border-radius: 5px;
     cursor: pointer;
     font-size: clamp(14px, 2vw, 20px);
 }
@@ -45,12 +48,12 @@ button:disabled {
 /* Scale resource count */
 #resource-count {
     font-size: clamp(1.5rem, 4vw, 3rem);
-    margin: 2vh 0;
+    margin: 20px 0;
 }
 
 /* Scale section spacing */
 .upgrades, .stats {
-    margin: 2vh 0;
+    margin: 20px 0;
 }
 
 .upgrades h2, .stats h2 {
