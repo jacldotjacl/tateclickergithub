@@ -166,10 +166,10 @@ button:hover .tooltip {
     width: 40px;
     height: 40px;
     padding: 0;
-    background: #ffffff; /* White background */
-    border-radius: 5px; /* Curved edges */
+    background: #ffffff;
+    border-radius: 5px;
     border: none;
-    z-index: 10; /* Ensure they stay above scroll content */
+    z-index: 10;
 }
 
 #info-btn {
@@ -282,7 +282,7 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    max-height: calc(100% - 80px - 60px - 20px); /* Header (~80px) + buttons (60px) + buffer (20px) */
+    max-height: calc(100% - 100px - 60px); /* Header (~80px) + tabs (~20px) + buttons (60px) */
     overflow-y: auto;
     width: 100%;
     padding-right: 10px;
@@ -327,7 +327,7 @@ button:hover .tooltip {
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
-    max-height: calc(100% - 80px); /* Adjusted for header height */
+    max-height: calc(100% - 80px); /* Header height */
 }
 
 /* Modal styles */
