@@ -2,27 +2,28 @@ body {
     font-family: Arial, sans-serif;
     background-color: #1a1a1a;
     color: #ffffff;
-    margin: 0;  /* Removed flex properties as they're not needed */
-    padding: 20px 0;  /* Changed to only have top/bottom padding */
+    margin: 0;
+    padding: 2vh 0;  /* Changed to viewport height units */
 }
 
 .game-container {
-    width: 100%;  /* Changed from max-width to full width */
+    width: 100%;
     text-align: center;
     background-color: #2d2d2d;
-    padding: 20px;
-    border-radius: 0;  /* Removed border-radius since it spans full width */
-    min-height: calc(100vh - 40px);  /* Makes it fill vertical space minus padding */
+    padding: 2vh 2vw;  /* Using viewport units for padding */
+    min-height: calc(100vh - 4vh);  /* Adjusted for new padding */
 }
 
+/* Scale buttons based on screen size */
 button {
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 1vh 2vw;  /* Scaled padding */
+    margin: 0.5vh;  /* Scaled margin */
     background-color: #4a4a4a;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5vh;  /* Scaled radius */
     cursor: pointer;
+    font-size: clamp(14px, 2vw, 20px);  /* Scales between 14-20px */
 }
 
 button:hover:not(:disabled) {
@@ -34,11 +35,28 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Scale resource count */
 #resource-count {
-    font-size: 2em;
-    margin: 20px 0;
+    font-size: clamp(1.5rem, 4vw, 3rem);  /* Scales between 1.5-3rem */
+    margin: 2vh 0;  /* Scaled margin */
 }
 
+/* Scale section spacing */
 .upgrades, .stats {
-    margin: 20px 0;
+    margin: 2vh 0;
+}
+
+/* Ensure text in upgrades and stats scales */
+.upgrades h2, .stats h2 {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+.stats p {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+}
+
+/* Add a max-width container for content on very wide screens */
+.content-wrapper {
+    max-width: 1200px;  /* Prevents content from getting too wide */
+    margin: 0 auto;  /* Centers the content */
 }
