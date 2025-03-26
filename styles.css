@@ -3,27 +3,33 @@ body {
     background-color: #1a1a1a;
     color: #ffffff;
     margin: 0;
-    padding: 2vh 0;  /* Changed to viewport height units */
+    padding: 0;  /* Removed padding completely */
+    height: 100vh;  /* Full viewport height */
+    overflow: hidden;  /* Prevents scrolling */
 }
 
 .game-container {
     width: 100%;
+    height: 100vh;  /* Full viewport height */
     text-align: center;
     background-color: #2d2d2d;
-    padding: 2vh 2vw;  /* Using viewport units for padding */
-    min-height: calc(100vh - 4vh);  /* Adjusted for new padding */
+    padding: 2vh 2vw;  /* Keep internal padding */
+    box-sizing: border-box;  /* Include padding in height calculation */
+    display: flex;  /* Use flexbox to manage content */
+    flex-direction: column;
+    justify-content: center;  /* Center content vertically */
 }
 
 /* Scale buttons based on screen size */
 button {
-    padding: 1vh 2vw;  /* Scaled padding */
-    margin: 0.5vh;  /* Scaled margin */
+    padding: 1vh 2vw;
+    margin: 0.5vh;
     background-color: #4a4a4a;
     color: white;
     border: none;
-    border-radius: 0.5vh;  /* Scaled radius */
+    border-radius: 0.5vh;
     cursor: pointer;
-    font-size: clamp(14px, 2vw, 20px);  /* Scales between 14-20px */
+    font-size: clamp(14px, 2vw, 20px);
 }
 
 button:hover:not(:disabled) {
@@ -37,8 +43,8 @@ button:disabled {
 
 /* Scale resource count */
 #resource-count {
-    font-size: clamp(1.5rem, 4vw, 3rem);  /* Scales between 1.5-3rem */
-    margin: 2vh 0;  /* Scaled margin */
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    margin: 2vh 0;
 }
 
 /* Scale section spacing */
@@ -46,7 +52,6 @@ button:disabled {
     margin: 2vh 0;
 }
 
-/* Ensure text in upgrades and stats scales */
 .upgrades h2, .stats h2 {
     font-size: clamp(1.2rem, 3vw, 2rem);
 }
@@ -55,8 +60,11 @@ button:disabled {
     font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
-/* Add a max-width container for content on very wide screens */
 .content-wrapper {
-    max-width: 1200px;  /* Prevents content from getting too wide */
-    margin: 0 auto;  /* Centers the content */
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-grow: 1;  /* Allows content to take available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Center content vertically within wrapper */
 }
