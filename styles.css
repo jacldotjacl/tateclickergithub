@@ -147,14 +147,24 @@ button:disabled {
 
 /* Large flyout for snake game */
 .large-flyout {
-    width: 400px; /* Appropriately sized for Snake */
+    width: 400px;
     height: 300px;
-    padding: 0; /* Remove padding since iframe fills it */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.flyout-header {
+    padding: 10px;
+    background-color: #4a4a4a;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 10px 10px 0 0; /* Rounded top corners */
 }
 
 .large-flyout iframe {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px); /* Adjust height to account for header */
     border: none;
 }
 
@@ -180,7 +190,7 @@ button:disabled {
 }
 
 .tab-btn.active {
-    background-color: #5a5a5a;
+    background-color: "5a5a5a;
 }
 
 .tab-content {
