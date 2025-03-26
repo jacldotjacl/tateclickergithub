@@ -51,8 +51,14 @@
             <button id="reset-btn">Reset Progress</button>
         </div>
         <div id="snake-flyout" class="flyout large-flyout">
-            <div class="flyout-header">Press ENTER key to play</div> <!-- Added text -->
+            <div class="flyout-header">Press ENTER key to play</div>
             <iframe src="https://emulatoros.github.io/gfile/snake/" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div id="offline-earnings-modal" class="modal"> <!-- New modal -->
+            <div class="modal-content">
+                <span id="close-modal" class="close">&times;</span>
+                <p>You earned <span id="offline-earnings">0</span> Tatecoins while offline!</p>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
