@@ -166,8 +166,10 @@ button:hover .tooltip {
     width: 40px;
     height: 40px;
     padding: 0;
-    background: none;
+    background: #ffffff; /* White background */
+    border-radius: 5px; /* Curved edges */
     border: none;
+    z-index: 10; /* Ensure they stay above scroll content */
 }
 
 #info-btn {
@@ -264,7 +266,7 @@ button:hover .tooltip {
 
 .tab-pane {
     display: none;
-    flex-grow: 1; /* Allow pane to fill available space */
+    flex-grow: 1;
 }
 
 .tab-pane.active {
@@ -280,8 +282,7 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    height: calc(100vh - 20px - 20px - 60px - 40px - 20px - 60px); /* Full viewport - top/bottom insets - header - tabs - tab margin - button space */
-    max-height: none; /* Remove previous max-height constraint */
+    max-height: calc(100% - 80px - 60px - 20px); /* Header (~80px) + buttons (60px) + buffer (20px) */
     overflow-y: auto;
     width: 100%;
     padding-right: 10px;
@@ -326,6 +327,7 @@ button:hover .tooltip {
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
+    max-height: calc(100% - 80px); /* Adjusted for header height */
 }
 
 /* Modal styles */
