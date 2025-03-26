@@ -8,6 +8,9 @@ const autoMinerBtn = document.getElementById('auto-miner');
 const drillBtn = document.getElementById('drill');
 const perClickDisplay = document.getElementById('per-click');
 const perSecondDisplay = document.getElementById('per-second');
+const infoBtn = document.getElementById('info-btn');
+const infoFlyout = document.getElementById('info-flyout');
+const resetBtn = document.getElementById('reset-btn');
 
 // Update display
 function updateDisplay() {
@@ -27,7 +30,7 @@ function updateButtons() {
 mineBtn.addEventListener('click', () => {
     crystals += crystalsPerClick;
     updateDisplay();
-    saveGame(); // Save after each click
+    saveGame();
 });
 
 // Buy auto miner
@@ -36,7 +39,7 @@ autoMinerBtn.addEventListener('click', () => {
         crystals -= 10;
         crystalsPerSecond += 1;
         updateDisplay();
-        saveGame(); // Save after purchase
+        saveGame();
     }
 });
 
@@ -46,7 +49,7 @@ drillBtn.addEventListener('click', () => {
         crystals -= 50;
         crystalsPerClick += 5;
         updateDisplay();
-        saveGame(); // Save after purchase
+        saveGame();
     }
 });
 
@@ -76,9 +79,8 @@ function loadGame() {
         crystalsPerClick = gameState.crystalsPerClick || 1;
         crystalsPerSecond = gameState.crystalsPerSecond || 0;
         
-        // Calculate offline progress
         if (gameState.lastSaved) {
-            const timeAway = (Date.now() - gameState.lastSaved) / 1000; // seconds
+            const timeAway = (Date.now() - gameState.lastSaved) / 1000;
             const offlineGains = timeAway * crystalsPerSecond;
             crystals += offlineGains;
         }
@@ -86,6 +88,26 @@ function loadGame() {
         updateDisplay();
     }
 }
+
+// Reset game
+function resetGame() {
+    if (confirm('Are you sure you want to reset all progress?')) {
+        crystals = 0;
+        crystalsPerClick = 1;
+        crystalsPerSecond = 0;
+        localStorage.removeItem('spaceMinerSave');
+        updateDisplay();
+        infoFlyout.classList.remove('active'); // Close flyout
+    }
+}
+
+// Toggle info flyout
+infoBtn.addEventListener('click', () => {
+    infoFlyout.classList.toggle('active');
+});
+
+// Reset button
+resetBtn.addEventListener('click', resetGame);
 
 // Save when closing tab/window
 window.addEventListener('beforeunload', () => {
