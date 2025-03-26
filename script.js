@@ -28,6 +28,7 @@ function updateDisplay() {
     perClickDisplay.textContent = tatecoinsPerClick;
     perSecondDisplay.textContent = tatecoinsPerSecond;
     updateButtons();
+    updateWorkerCounters();
 }
 
 // Update button states
@@ -35,6 +36,21 @@ function updateButtons() {
     document.querySelectorAll('#workers-container button, #upgrades-container button:not(.purchased)').forEach(btn => {
         const cost = parseInt(btn.dataset.cost);
         btn.disabled = tatecoins < cost;
+    });
+}
+
+// Update worker counters
+function updateWorkerCounters() {
+    document.querySelectorAll('#workers-container button').forEach(btn => {
+        const workerId = btn.id;
+        const count = workers[workerId]?.count || 0;
+        let counter = btn.querySelector('.worker-counter');
+        if (!counter) {
+            counter = document.createElement('span');
+            counter.classList.add('worker-counter');
+            btn.appendChild(counter);
+        }
+        counter.textContent = count;
     });
 }
 
@@ -121,14 +137,14 @@ function resetGame() {
         tatecoins = 0;
         tatecoinsPerClick = 1;
         workers = {};
-        upgrades = {}; // Clear purchased upgrades
+        upgrades = {};
         calculatePerSecond();
         updateDisplay();
         infoFlyout.classList.remove('active');
-        loadWorkersAndUpgrades(); // Reload all upgrades as unpurchased
-        showPurchasedUpgrades.checked = false; // Reset checkbox
+        loadWorkersAndUpgrades();
+        showPurchasedUpgrades.checked = false;
         document.querySelectorAll('#upgrades-container button.purchased').forEach(btn => {
-            btn.style.display = 'none'; // Hide any lingering purchased upgrades
+            btn.style.display = 'none';
         });
     }
 }
@@ -136,8 +152,8 @@ function resetGame() {
 // Load workers and upgrades from JSON files
 async function loadWorkersAndUpgrades() {
     try {
-        const workersUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/workers.json';
-        const upgradesUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/upgrades.json';
+        const workersUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/workers.json';
+        const upgradesUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/upgrades.json';
 
         // Fetch workers
         const workersResponse = await fetch(workersUrl);
@@ -149,8 +165,27 @@ async function loadWorkersAndUpgrades() {
             }
             const btn = document.createElement('button');
             btn.id = worker.id;
-            btn.textContent = `${worker.name} (Cost: ${worker.cost})`;
             btn.dataset.cost = worker.cost;
+
+            // Add icon if present
+            if (worker.icon) {
+                const img = document.createElement('img');
+                img.src = worker.icon;
+                img.classList.add('worker-icon');
+                btn.appendChild(img);
+            }
+
+            // Add name
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = `${worker.name} (Cost: ${worker.cost})`;
+            btn.appendChild(nameSpan);
+
+            // Add counter
+            const counter = document.createElement('span');
+            counter.classList.add('worker-counter');
+            counter.textContent = workers[worker.id].count;
+            btn.appendChild(counter);
+
             btn.addEventListener('click', () => buyWorker(worker));
             workersContainer.appendChild(btn);
         });
