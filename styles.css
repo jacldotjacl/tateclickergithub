@@ -277,7 +277,7 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    max-height: calc(100% - 120px); /* Adjusted: header (~60px) + tabs (~40px) + padding */
+    max-height: calc(100% - 150px); /* Increased buffer: header (~60px) + tabs (~40px) + button space (60px) */
     overflow-y: auto;
     width: 100%;
     padding-right: 10px;
@@ -322,7 +322,7 @@ button:hover .tooltip {
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
-    max-height: calc(100% - 60px); /* Reverted to original, header height */
+    max-height: calc(100% - 60px); /* Header height */
 }
 
 /* Modal styles */
