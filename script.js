@@ -40,11 +40,15 @@ function updateButtons() {
     });
 }
 
-// Update worker counters
+// Update worker counters and prices
 function updateWorkerCounters() {
     document.querySelectorAll('#workers-container button').forEach(btn => {
         const workerId = btn.id;
-        const count = workers[workerId]?.count || 0;
+        const worker = workers[workerId];
+        const count = worker?.count || 0;
+        const baseCost = worker?.baseCost || parseInt(btn.dataset.baseCost);
+        const currentCost = Math.round(baseCost * Math.pow(1.15, count));
+        
         let counter = btn.querySelector('.worker-counter');
         if (!counter) {
             counter = document.createElement('span');
@@ -52,6 +56,10 @@ function updateWorkerCounters() {
             btn.appendChild(counter);
         }
         counter.textContent = count;
+
+        const nameSpan = btn.querySelector('.name-span');
+        nameSpan.textContent = `${worker.name} (Cost: ${currentCost})`;
+        btn.dataset.cost = currentCost;
     });
 }
 
@@ -188,12 +196,15 @@ async function loadWorkersAndUpgrades() {
                 workers[worker.id] = {
                     count: 0,
                     baseValue: worker.effect.type === 'perSecond' ? worker.effect.value : 0,
-                    description: worker.description || ''
+                    description: worker.description || '',
+                    baseCost: worker.cost, // Store initial cost
+                    name: worker.name // Store name for display
                 };
             }
             const btn = document.createElement('button');
             btn.id = worker.id;
-            btn.dataset.cost = worker.cost;
+            btn.dataset.baseCost = worker.cost; // Store base cost in dataset
+            btn.dataset.cost = worker.cost; // Initial cost
 
             if (worker.icon) {
                 const img = document.createElement('img');
@@ -203,6 +214,7 @@ async function loadWorkersAndUpgrades() {
             }
 
             const nameSpan = document.createElement('span');
+            nameSpan.classList.add('name-span');
             nameSpan.textContent = `${worker.name} (Cost: ${worker.cost})`;
             btn.appendChild(nameSpan);
 
@@ -255,10 +267,11 @@ async function loadWorkersAndUpgrades() {
     }
 }
 
-// Buy worker
+// Buy worker with price scaling
 function buyWorker(worker) {
-    if (tatecoins >= worker.cost) {
-        tatecoins -= worker.cost;
+    const currentCost = Math.round(workers[worker.id].baseCost * Math.pow(1.15, workers[worker.id].count));
+    if (tatecoins >= currentCost) {
+        tatecoins -= currentCost;
         workers[worker.id].count++;
         calculatePerSecond();
         updateDisplay();
