@@ -114,7 +114,7 @@ button:disabled {
 }
 
 #snake-btn {
-    right: 70px; /* Positioned 50px left of info button (40px width + 10px gap) */
+    right: 70px;
 }
 
 #info-btn img, #snake-btn img {
@@ -143,6 +143,19 @@ button:disabled {
     transform: translateX(0);
     opacity: 1;
     visibility: visible;
+}
+
+/* Large flyout for snake game */
+.large-flyout {
+    width: 400px; /* Appropriately sized for Snake */
+    height: 300px;
+    padding: 0; /* Remove padding since iframe fills it */
+}
+
+.large-flyout iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /* Menu styles */
