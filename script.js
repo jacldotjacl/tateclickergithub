@@ -1,6 +1,6 @@
-let tatecoins = 0; // Changed from crystals
-let tatecoinsPerClick = 1; // Updated
-let tatecoinsPerSecond = 0; // Updated
+let tatecoins = 0;
+let tatecoinsPerClick = 1;
+let tatecoinsPerSecond = 0;
 
 const resourceCount = document.getElementById('resource-count');
 const mineBtn = document.getElementById('mine-btn');
@@ -14,7 +14,7 @@ const resetBtn = document.getElementById('reset-btn');
 
 // Update display
 function updateDisplay() {
-    resourceCount.textContent = Math.floor(tatecoins) + ' Tatecoins'; // Updated
+    resourceCount.textContent = Math.floor(tatecoins) + ' Tatecoins'; // Already correct here
     perClickDisplay.textContent = tatecoinsPerClick;
     perSecondDisplay.textContent = tatecoinsPerSecond;
     updateButtons();
@@ -22,13 +22,13 @@ function updateDisplay() {
 
 // Update button states
 function updateButtons() {
-    autoMinerBtn.disabled = tatecoins < 10; // Updated
-    drillBtn.disabled = tatecoins < 50; // Updated
+    autoMinerBtn.disabled = tatecoins < 10;
+    drillBtn.disabled = tatecoins < 50;
 }
 
 // Mine manually
 mineBtn.addEventListener('click', () => {
-    tatecoins += tatecoinsPerClick; // Updated
+    tatecoins += tatecoinsPerClick;
     updateDisplay();
     saveGame();
 });
@@ -36,8 +36,8 @@ mineBtn.addEventListener('click', () => {
 // Buy auto miner
 autoMinerBtn.addEventListener('click', () => {
     if (tatecoins >= 10) {
-        tatecoins -= 10; // Updated
-        tatecoinsPerSecond += 1; // Updated
+        tatecoins -= 10;
+        tatecoinsPerSecond += 1;
         updateDisplay();
         saveGame();
     }
@@ -46,8 +46,8 @@ autoMinerBtn.addEventListener('click', () => {
 // Buy drill
 drillBtn.addEventListener('click', () => {
     if (tatecoins >= 50) {
-        tatecoins -= 50; // Updated
-        tatecoinsPerClick += 5; // Updated
+        tatecoins -= 50;
+        tatecoinsPerClick += 5;
         updateDisplay();
         saveGame();
     }
@@ -55,16 +55,16 @@ drillBtn.addEventListener('click', () => {
 
 // Auto mining
 setInterval(() => {
-    tatecoins += tatecoinsPerSecond / 10; // Updated
+    tatecoins += tatecoinsPerSecond / 10;
     updateDisplay();
 }, 100);
 
 // Save game state
 function saveGame() {
     const gameState = {
-        tatecoins: tatecoins, // Updated
-        tatecoinsPerClick: tatecoinsPerClick, // Updated
-        tatecoinsPerSecond: tatecoinsPerSecond, // Updated
+        tatecoins: tatecoins,
+        tatecoinsPerClick: tatecoinsPerClick,
+        tatecoinsPerSecond: tatecoinsPerSecond,
         lastSaved: Date.now()
     };
     localStorage.setItem('spaceMinerSave', JSON.stringify(gameState));
@@ -75,14 +75,14 @@ function loadGame() {
     const savedState = localStorage.getItem('spaceMinerSave');
     if (savedState) {
         const gameState = JSON.parse(savedState);
-        tatecoins = gameState.tatecoins || 0; // Updated
-        tatecoinsPerClick = gameState.tatecoinsPerClick || 1; // Updated
-        tatecoinsPerSecond = gameState.tatecoinsPerSecond || 0; // Updated
+        tatecoins = gameState.tatecoins || 0;
+        tatecoinsPerClick = gameState.tatecoinsPerClick || 1;
+        tatecoinsPerSecond = gameState.tatecoinsPerSecond || 0;
         
         if (gameState.lastSaved) {
             const timeAway = (Date.now() - gameState.lastSaved) / 1000;
-            const offlineGains = timeAway * tatecoinsPerSecond; // Updated
-            tatecoins += offlineGains; // Updated
+            const offlineGains = timeAway * tatecoinsPerSecond;
+            tatecoins += offlineGains;
         }
         
         updateDisplay();
@@ -92,9 +92,9 @@ function loadGame() {
 // Reset game
 function resetGame() {
     if (confirm('Are you sure you want to reset all progress?')) {
-        tatecoins = 0; // Updated
-        tatecoinsPerClick = 1; // Updated
-        tatecoinsPerSecond = 0; // Updated
+        tatecoins = 0;
+        tatecoinsPerClick = 1;
+        tatecoinsPerSecond = 0;
         localStorage.removeItem('spaceMinerSave');
         updateDisplay();
         infoFlyout.classList.remove('active');
