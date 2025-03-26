@@ -140,7 +140,7 @@ function saveGame() {
     localStorage.setItem('spaceMinerSave', JSON.stringify(gameState));
 }
 
-// Load game state
+// Load game state with offline earnings
 function loadGame() {
     const savedState = localStorage.getItem('spaceMinerSave');
     if (savedState) {
@@ -149,18 +149,21 @@ function loadGame() {
         tatecoinsPerClick = gameState.tatecoinsPerClick || 1;
         workers = gameState.workers || {};
         upgrades = gameState.upgrades || {};
-        
+
+        // Calculate tatecoinsPerSecond first
+        calculatePerSecond();
+
+        // Then calculate offline earnings
         if (gameState.lastSaved) {
-            const timeAway = (Date.now() - gameState.lastSaved) / 1000;
-            const offlineGains = timeAway * tatecoinsPerSecond;
+            const timeAway = (Date.now() - gameState.lastSaved) / 1000; // Seconds away
+            const offlineGains = Math.floor(timeAway * tatecoinsPerSecond);
             if (offlineGains > 0) {
                 tatecoins += offlineGains;
-                offlineEarningsDisplay.textContent = Math.floor(offlineGains);
-                offlineEarningsModal.style.display = 'block';
+                offlineEarningsDisplay.textContent = offlineGains;
+                offlineEarningsModal.style.display = 'block'; // Show modal
             }
         }
         
-        calculatePerSecond();
         updateDisplay();
     }
     loadWorkersAndUpgrades();
@@ -208,7 +211,7 @@ async function loadWorkersAndUpgrades() {
             btn.id = worker.id;
             btn.dataset.baseCost = worker.cost;
             btn.dataset.cost = worker.cost;
-            btn.dataset.name = worker.name; // Store name in dataset
+            btn.dataset.name = worker.name;
 
             if (worker.icon) {
                 const img = document.createElement('img');
