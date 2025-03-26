@@ -27,7 +27,7 @@ body {
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Changed to align top */
+    align-items: flex-start;
     margin-bottom: 20px;
     flex-shrink: 0;
 }
@@ -41,13 +41,13 @@ body {
 .resource-stats {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Align right */
+    align-items: flex-end;
 }
 
 #resource-count {
     font-size: clamp(1.2rem, 2.5vw, 2rem);
     text-align: right;
-    margin-bottom: 10px; /* Space between counter and stats */
+    margin-bottom: 10px;
 }
 
 button {
@@ -61,6 +61,14 @@ button {
     font-size: clamp(14px, 2vw, 20px);
 }
 
+.clicker-area {
+    flex: 1; /* Take available vertical space */
+    display: flex;
+    justify-content: flex-start; /* Align left */
+    align-items: center; /* Center vertically */
+    padding-left: 20px; /* Small offset from left edge */
+}
+
 #mine-btn {
     padding: 0;
     background: none;
@@ -71,7 +79,6 @@ button {
     max-width: 200px;
     height: auto;
     display: block;
-    margin: 0 auto;
 }
 
 button:hover:not(:disabled) {
@@ -135,15 +142,15 @@ button:disabled {
 }
 
 .stats {
-    margin: 0; /* No extra margins since it's in header */
+    margin: 0;
 }
 
 .stats h2 {
-    display: none; /* Remove "Stats" title since it's under resource count */
+    display: none;
 }
 
 .stats p {
-    font-size: clamp(0.8rem, 2vw, 1rem); /* Slightly smaller to fit */
+    font-size: clamp(0.8rem, 2vw, 1rem);
     margin: 5px 0;
     text-align: right;
 }
@@ -151,8 +158,7 @@ button:disabled {
 .content-wrapper {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row; /* Changed to row for side-by-side layout */
     overflow-y: auto;
-    max-height: calc(100% - 100px); /* Increased to account for taller header */
+    max-height: calc(100% - 100px);
 }
