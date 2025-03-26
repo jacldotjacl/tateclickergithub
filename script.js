@@ -1,8 +1,8 @@
 let tatecoins = 0;
 let tatecoinsPerClick = 1;
 let tatecoinsPerSecond = 0;
-let workers = {}; // Tracks worker counts and base values
-let upgrades = {}; // Tracks purchased upgrades
+let workers = {};
+let upgrades = {};
 
 const resourceCount = document.getElementById('resource-count');
 const mineBtn = document.getElementById('mine-btn');
@@ -20,6 +20,7 @@ const offlineEarningsDisplay = document.getElementById('offline-earnings');
 const closeModal = document.getElementById('close-modal');
 const workersContainer = document.getElementById('workers-container');
 const upgradesContainer = document.getElementById('upgrades-container');
+const showPurchasedUpgrades = document.getElementById('show-purchased-upgrades');
 
 // Update display
 function updateDisplay() {
@@ -31,7 +32,7 @@ function updateDisplay() {
 
 // Update button states
 function updateButtons() {
-    document.querySelectorAll('#workers-container button, #upgrades-container button').forEach(btn => {
+    document.querySelectorAll('#workers-container button, #upgrades-container button:not(.purchased)').forEach(btn => {
         const cost = parseInt(btn.dataset.cost);
         btn.disabled = tatecoins < cost;
     });
@@ -120,19 +121,23 @@ function resetGame() {
         tatecoins = 0;
         tatecoinsPerClick = 1;
         workers = {};
-        upgrades = {};
+        upgrades = {}; // Clear purchased upgrades
         calculatePerSecond();
         updateDisplay();
         infoFlyout.classList.remove('active');
-        loadWorkersAndUpgrades();
+        loadWorkersAndUpgrades(); // Reload all upgrades as unpurchased
+        showPurchasedUpgrades.checked = false; // Reset checkbox
+        document.querySelectorAll('#upgrades-container button.purchased').forEach(btn => {
+            btn.style.display = 'none'; // Hide any lingering purchased upgrades
+        });
     }
 }
 
 // Load workers and upgrades from JSON files
 async function loadWorkersAndUpgrades() {
     try {
-        const workersUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/workers.json';
-        const upgradesUrl = 'https://raw.githubusercontent.com/jacldotjacl/tateclickerdata/refs/heads/main/upgrades.json';
+        const workersUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/workers.json';
+        const upgradesUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/upgrades.json';
 
         // Fetch workers
         const workersResponse = await fetch(workersUrl);
@@ -159,7 +164,13 @@ async function loadWorkersAndUpgrades() {
             btn.id = upgrade.id;
             btn.textContent = `${upgrade.name} (Cost: ${upgrade.cost})`;
             btn.dataset.cost = upgrade.cost;
-            btn.addEventListener('click', () => buyUpgrade(upgrade));
+            if (upgrades[upgrade.id]) {
+                btn.classList.add('purchased');
+                btn.disabled = true;
+                btn.style.display = showPurchasedUpgrades.checked ? 'block' : 'none';
+            } else {
+                btn.addEventListener('click', () => buyUpgrade(upgrade, btn));
+            }
             upgradesContainer.appendChild(btn);
         });
 
@@ -182,19 +193,29 @@ function buyWorker(worker) {
 }
 
 // Buy upgrade
-function buyUpgrade(upgrade) {
-    if (tatecoins >= upgrade.cost && !upgrades[upgrade.id]) { // Prevent buying twice
+function buyUpgrade(upgrade, button) {
+    if (tatecoins >= upgrade.cost && !upgrades[upgrade.id]) {
         tatecoins -= upgrade.cost;
         upgrades[upgrade.id] = upgrade;
         if (upgrade.effect.type === 'perClick') {
             tatecoinsPerClick += upgrade.effect.value;
         } else if (upgrade.effect.type === 'workerMultiplier') {
-            calculatePerSecond(); // Recalculate with new multiplier
+            calculatePerSecond();
         }
+        button.classList.add('purchased');
+        button.disabled = true;
+        button.style.display = showPurchasedUpgrades.checked ? 'block' : 'none';
         updateDisplay();
         saveGame();
     }
 }
+
+// Toggle show purchased upgrades
+showPurchasedUpgrades.addEventListener('change', () => {
+    document.querySelectorAll('#upgrades-container button.purchased').forEach(btn => {
+        btn.style.display = showPurchasedUpgrades.checked ? 'block' : 'none';
+    });
+});
 
 // Toggle info flyout
 infoBtn.addEventListener('click', (e) => {
