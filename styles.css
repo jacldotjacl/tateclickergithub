@@ -65,7 +65,8 @@ button {
     align-items: center;
     justify-content: space-between;
     position: relative;
-    min-width: 150px; /* For worker/upgrade buttons */
+    min-width: 180px; /* Increased for more text space */
+    overflow: hidden; /* Prevent text spillover */
 }
 
 .clicker-area {
@@ -116,6 +117,7 @@ button.purchased {
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    flex-shrink: 0; /* Prevent icon shrinking */
 }
 
 .worker-counter {
@@ -124,6 +126,16 @@ button.purchased {
     background-color: #3a3a3a;
     padding: 2px 8px;
     border-radius: 10px;
+    flex-shrink: 0; /* Prevent counter shrinking */
+}
+
+/* Text within buttons */
+button span {
+    white-space: nowrap; /* Keep text in one line */
+    overflow: hidden; /* Hide excess text */
+    text-overflow: ellipsis; /* Add ellipsis for long text */
+    flex-grow: 1; /* Allow text to take available space */
+    text-align: left; /* Align text left */
 }
 
 /* Tooltip styles */
