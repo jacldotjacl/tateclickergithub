@@ -65,7 +65,7 @@ button {
     align-items: center;
     justify-content: space-between;
     position: relative;
-    min-width: 150px; /* Ensure buttons have a consistent width for horizontal layout */
+    min-width: 150px; /* For worker/upgrade buttons */
 }
 
 .clicker-area {
@@ -171,6 +171,7 @@ button:hover .tooltip {
     border-radius: 5px;
     border: none;
     z-index: 10;
+    min-width: 0; /* Override button min-width */
 }
 
 #info-btn {
@@ -185,6 +186,7 @@ button:hover .tooltip {
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: contain; /* Prevent stretching */
 }
 
 /* Flyout styles */
@@ -268,6 +270,7 @@ button:hover .tooltip {
 .tab-pane {
     display: none;
     flex-grow: 1;
+    position: relative; /* Contain scroll area */
 }
 
 .tab-pane.active {
@@ -283,21 +286,22 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    height: 100px; /* Fixed height to stay above buttons */
+    height: 100px; /* Fixed height above buttons */
+    width: 50%; /* Right half of screen */
+    margin-left: auto; /* Push to right side */
     overflow-x: auto; /* Horizontal scrolling */
     overflow-y: hidden; /* No vertical scrolling */
-    width: 100%;
-    display: flex; /* Horizontal row layout */
+    display: flex;
     flex-direction: row;
-    gap: 10px; /* Space between buttons */
-    padding: 0 10px; /* Padding for edges */
+    gap: 10px;
+    padding: 0 10px;
     box-sizing: border-box;
-    white-space: nowrap; /* Keep items in a single row */
+    white-space: nowrap;
 }
 
 /* Customize horizontal scrollbar */
 #workers-container::-webkit-scrollbar, #upgrades-container::-webkit-scrollbar {
-    height: 8px; /* Scrollbar height for horizontal */
+    height: 8px;
 }
 
 #workers-container::-webkit-scrollbar-track, #upgrades-container::-webkit-scrollbar-track {
@@ -333,7 +337,7 @@ button:hover .tooltip {
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
-    max-height: calc(100% - 80px); /* Header height */
+    max-height: calc(100% - 80px);
 }
 
 /* Modal styles */
