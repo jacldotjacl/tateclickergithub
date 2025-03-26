@@ -85,7 +85,7 @@ button:disabled {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    width: 40px; /* Square size, roughly matches previous button */
+    width: 40px;
     height: 40px;
     padding: 0;
     background: none;
@@ -93,7 +93,7 @@ button:disabled {
 }
 
 #info-btn img {
-    width: 100%; /* Scales image to fit button */
+    width: 100%;
     height: 100%;
     display: block;
 }
@@ -110,6 +110,10 @@ button:disabled {
     opacity: 0;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     visibility: hidden;
+    min-width: 200px; /* Ensure enough space for content */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between stats and reset button */
 }
 
 .flyout.active {
@@ -118,16 +122,26 @@ button:disabled {
     visibility: visible;
 }
 
-.upgrades, .stats {
+.upgrades {
     margin: 20px 0;
 }
 
-.upgrades h2, .stats h2 {
+.upgrades h2 {
     font-size: clamp(1.2rem, 3vw, 2rem);
 }
 
+.stats {
+    margin: 0; /* Adjusted since it's now in flyout */
+}
+
+.stats h2 {
+    font-size: clamp(1rem, 2.5vw, 1.5rem); /* Slightly smaller in flyout */
+    margin: 0 0 10px 0;
+}
+
 .stats p {
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Adjusted for flyout */
+    margin: 5px 0;
 }
 
 .content-wrapper {
