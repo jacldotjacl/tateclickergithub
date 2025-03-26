@@ -13,7 +13,7 @@ body {
     height: calc(100vh - 4vh);  /* Full height minus top + bottom padding */
     text-align: center;
     background-color: #2d2d2d;  /* Grey background */
-    padding: 2vh 2vw;  /* Internal padding */
+    padding: 2vh;  /* Changed to 2vh all around (was 2vh 2vw) */
     box-sizing: border-box;
     border-radius: 2vh;  /* Rounded corners */
     display: flex;
@@ -23,7 +23,7 @@ body {
 
 /* Scale buttons based on screen size */
 button {
-    padding: 1vh 2vw;
+    padding: 1vh 2vh;  /* Changed horizontal padding to 2vh (was 2vw) */
     margin: 0.5vh;
     background-color: #4a4a4a;
     color: white;
