@@ -15,10 +15,12 @@ body {
     right: 20px;
     bottom: 20px;
     text-align: center;
-    background-color: #2d2d2d;
+    background-image: url('https://file.garden/ZLvPQieVhBA68hAk/tateclicker/newbackgroundperchance%3F'); /* New background */
+    background-size: cover; /* Scales image to fill container */
+    background-position: center; /* Centers the image */
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 20px;
+    border-radius: 20px; /* Keeps curved corners */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -277,7 +279,7 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    max-height: calc(100% - 150px); /* Increased buffer: header (~60px) + tabs (~40px) + button space (60px) */
+    max-height: calc(100% - 150px);
     overflow-y: auto;
     width: 100%;
     padding-right: 10px;
@@ -322,7 +324,7 @@ button:hover .tooltip {
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
-    max-height: calc(100% - 60px); /* Header height */
+    max-height: calc(100% - 60px);
 }
 
 /* Modal styles */
