@@ -62,7 +62,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative; /* For tooltip positioning */
+    position: relative;
 }
 
 .clicker-area {
@@ -133,7 +133,7 @@ button.purchased {
     padding: 10px;
     position: absolute;
     z-index: 1;
-    bottom: 125%; /* Above the button */
+    bottom: 125%;
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -274,6 +274,33 @@ button:hover .tooltip {
     margin: 0 0 20px 0;
 }
 
+#workers-container, #upgrades-container {
+    max-height: calc(100% - 60px - 40px - 20px); /* Total height - header - buttons - padding */
+    overflow-y: auto; /* Enable vertical scrolling */
+    width: 100%;
+    padding-right: 10px; /* Prevent scrollbar overlap with content */
+    box-sizing: border-box;
+}
+
+/* Customize scrollbar */
+#workers-container::-webkit-scrollbar, #upgrades-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#workers-container::-webkit-scrollbar-track, #upgrades-container::-webkit-scrollbar-track {
+    background: #2d2d2d;
+    border-radius: 4px;
+}
+
+#workers-container::-webkit-scrollbar-thumb, #upgrades-container::-webkit-scrollbar-thumb {
+    background: #5a5a5a;
+    border-radius: 4px;
+}
+
+#workers-container::-webkit-scrollbar-thumb:hover, #upgrades-container::-webkit-scrollbar-thumb:hover {
+    background: #6a6a6a;
+}
+
 .stats {
     margin: 0;
 }
@@ -292,8 +319,8 @@ button:hover .tooltip {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
-    overflow-y: auto;
-    max-height: calc(100% - 100px);
+    overflow-y: hidden; /* Prevent wrapper from scrolling */
+    max-height: calc(100% - 60px); /* Adjust for header height */
 }
 
 /* Modal styles */
