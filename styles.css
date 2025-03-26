@@ -65,6 +65,7 @@ button {
     align-items: center;
     justify-content: space-between;
     position: relative;
+    min-width: 150px; /* Ensure buttons have a consistent width for horizontal layout */
 }
 
 .clicker-area {
@@ -282,16 +283,21 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
-    max-height: calc(100vh - 20px - 80px - 40px - 20px - 100px); /* Reduced by 40px more to shrink overall size */
-    overflow-y: auto;
+    height: 100px; /* Fixed height to stay above buttons */
+    overflow-x: auto; /* Horizontal scrolling */
+    overflow-y: hidden; /* No vertical scrolling */
     width: 100%;
-    padding-right: 10px;
+    display: flex; /* Horizontal row layout */
+    flex-direction: row;
+    gap: 10px; /* Space between buttons */
+    padding: 0 10px; /* Padding for edges */
     box-sizing: border-box;
+    white-space: nowrap; /* Keep items in a single row */
 }
 
-/* Customize scrollbar */
+/* Customize horizontal scrollbar */
 #workers-container::-webkit-scrollbar, #upgrades-container::-webkit-scrollbar {
-    width: 8px;
+    height: 8px; /* Scrollbar height for horizontal */
 }
 
 #workers-container::-webkit-scrollbar-track, #upgrades-container::-webkit-scrollbar-track {
@@ -327,7 +333,7 @@ button:hover .tooltip {
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
-    max-height: calc(100% - 80px);
+    max-height: calc(100% - 80px); /* Header height */
 }
 
 /* Modal styles */
