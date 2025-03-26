@@ -286,9 +286,11 @@ button:hover .tooltip {
 }
 
 #workers-container, #upgrades-container {
+    position: absolute;
+    top: 60px; /* Below header (~80px) and tabs (~40px), adjusted for spacing */
+    right: 10px; /* Slight offset from edge */
     height: 100px; /* Fixed height above buttons */
-    width: 50%; /* Right half of screen */
-    margin-left: auto; /* Push to right side */
+    width: calc(50% - 20px); /* Right half minus padding */
     overflow-x: auto; /* Horizontal scrolling */
     overflow-y: hidden; /* No vertical scrolling */
     display: flex;
@@ -297,6 +299,7 @@ button:hover .tooltip {
     padding: 0 10px;
     box-sizing: border-box;
     white-space: nowrap;
+    z-index: 5; /* Below buttons but above background */
 }
 
 /* Customize horizontal scrollbar */
