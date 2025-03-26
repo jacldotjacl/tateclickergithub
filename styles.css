@@ -74,8 +74,8 @@ button {
     padding: 0;
     background: none;
     border: none;
-    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.7); /* Glow effect */
-    border-radius: 50%; /* Circular glow to match central spread */
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5); /* White glow, larger spread */
+    border-radius: 50%; /* Keep circular shape */
 }
 
 #mine-btn img {
@@ -90,7 +90,7 @@ button:hover:not(:disabled) {
 
 #mine-btn:hover {
     background: none;
-    box-shadow: 0 0 20px 8px rgba(255, 215, 0, 0.9); /* Enhanced glow on hover */
+    box-shadow: 0 0 25px 12px rgba(255, 255, 255, 0.7); /* Enhanced white glow on hover */
 }
 
 button:disabled {
@@ -119,7 +119,7 @@ button:disabled {
 /* Flyout styles */
 .flyout {
     position: absolute;
-    bottom: 70px; /* Moved up slightly above info button (was 60px) */
+    bottom: 70px;
     right: 20px;
     background-color: #3a3a3a;
     padding: 15px;
@@ -129,6 +129,7 @@ button:disabled {
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
     visibility: hidden;
     min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Added drop shadow */
 }
 
 .flyout.active {
