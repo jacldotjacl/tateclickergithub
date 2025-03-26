@@ -44,15 +44,16 @@ mineBtn.addEventListener('click', (e) => {
     clickText.classList.add('click-text');
     clickText.textContent = 'Click!';
     
-    // Position at cursor
-    const rect = mineBtn.getBoundingClientRect();
+    // Position at cursor relative to clicker-area
+    const clickerArea = mineBtn.parentElement;
+    const rect = clickerArea.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     clickText.style.left = `${x}px`;
     clickText.style.top = `${y}px`;
     
     // Append to clicker-area
-    mineBtn.parentElement.appendChild(clickText);
+    clickerArea.appendChild(clickText);
     
     // Remove after animation
     clickText.addEventListener('animationend', () => {
