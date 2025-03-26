@@ -1,23 +1,28 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
+    background-color: #1a1a1a;  /* Black background */
     color: #ffffff;
     margin: 0;
-    padding: 0;  /* Removed padding completely */
-    height: 100vh;  /* Full viewport height */
-    overflow: hidden;  /* Prevents scrolling */
+    padding: 2vh;  /* Add some padding to show black background */
+    height: 100vh;
+    overflow: hidden;
+    display: flex;  /* Use flex to center the game container */
+    justify-content: center;
+    align-items: center;
 }
 
 .game-container {
     width: 100%;
-    height: 100vh;  /* Full viewport height */
+    max-width: 1200px;  /* Limit width but allow full width up to 1200px */
+    height: calc(100vh - 4vh);  /* Account for body padding */
     text-align: center;
-    background-color: #2d2d2d;
-    padding: 2vh 2vw;  /* Keep internal padding */
-    box-sizing: border-box;  /* Include padding in height calculation */
-    display: flex;  /* Use flexbox to manage content */
+    background-color: #2d2d2d;  /* Grey background */
+    padding: 2vh 2vw;
+    box-sizing: border-box;
+    border-radius: 2vh;  /* Rounded corners */
+    display: flex;
     flex-direction: column;
-    justify-content: center;  /* Center content vertically */
+    justify-content: center;
 }
 
 /* Scale buttons based on screen size */
@@ -61,10 +66,8 @@ button:disabled {
 }
 
 .content-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    flex-grow: 1;  /* Allows content to take available space */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;  /* Center content vertically within wrapper */
+    justify-content: center;
 }
