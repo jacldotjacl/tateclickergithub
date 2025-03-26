@@ -1,6 +1,6 @@
-let crystals = 0;
-let crystalsPerClick = 1;
-let crystalsPerSecond = 0;
+let tatecoins = 0; // Changed from crystals
+let tatecoinsPerClick = 1; // Updated
+let tatecoinsPerSecond = 0; // Updated
 
 const resourceCount = document.getElementById('resource-count');
 const mineBtn = document.getElementById('mine-btn');
@@ -14,30 +14,30 @@ const resetBtn = document.getElementById('reset-btn');
 
 // Update display
 function updateDisplay() {
-    resourceCount.textContent = Math.floor(crystals) + ' Space Crystals';
-    perClickDisplay.textContent = crystalsPerClick;
-    perSecondDisplay.textContent = crystalsPerSecond;
+    resourceCount.textContent = Math.floor(tatecoins) + ' Tatecoins'; // Updated
+    perClickDisplay.textContent = tatecoinsPerClick;
+    perSecondDisplay.textContent = tatecoinsPerSecond;
     updateButtons();
 }
 
 // Update button states
 function updateButtons() {
-    autoMinerBtn.disabled = crystals < 10;
-    drillBtn.disabled = crystals < 50;
+    autoMinerBtn.disabled = tatecoins < 10; // Updated
+    drillBtn.disabled = tatecoins < 50; // Updated
 }
 
 // Mine manually
 mineBtn.addEventListener('click', () => {
-    crystals += crystalsPerClick;
+    tatecoins += tatecoinsPerClick; // Updated
     updateDisplay();
     saveGame();
 });
 
 // Buy auto miner
 autoMinerBtn.addEventListener('click', () => {
-    if (crystals >= 10) {
-        crystals -= 10;
-        crystalsPerSecond += 1;
+    if (tatecoins >= 10) {
+        tatecoins -= 10; // Updated
+        tatecoinsPerSecond += 1; // Updated
         updateDisplay();
         saveGame();
     }
@@ -45,9 +45,9 @@ autoMinerBtn.addEventListener('click', () => {
 
 // Buy drill
 drillBtn.addEventListener('click', () => {
-    if (crystals >= 50) {
-        crystals -= 50;
-        crystalsPerClick += 5;
+    if (tatecoins >= 50) {
+        tatecoins -= 50; // Updated
+        tatecoinsPerClick += 5; // Updated
         updateDisplay();
         saveGame();
     }
@@ -55,16 +55,16 @@ drillBtn.addEventListener('click', () => {
 
 // Auto mining
 setInterval(() => {
-    crystals += crystalsPerSecond / 10;
+    tatecoins += tatecoinsPerSecond / 10; // Updated
     updateDisplay();
 }, 100);
 
 // Save game state
 function saveGame() {
     const gameState = {
-        crystals: crystals,
-        crystalsPerClick: crystalsPerClick,
-        crystalsPerSecond: crystalsPerSecond,
+        tatecoins: tatecoins, // Updated
+        tatecoinsPerClick: tatecoinsPerClick, // Updated
+        tatecoinsPerSecond: tatecoinsPerSecond, // Updated
         lastSaved: Date.now()
     };
     localStorage.setItem('spaceMinerSave', JSON.stringify(gameState));
@@ -75,14 +75,14 @@ function loadGame() {
     const savedState = localStorage.getItem('spaceMinerSave');
     if (savedState) {
         const gameState = JSON.parse(savedState);
-        crystals = gameState.crystals || 0;
-        crystalsPerClick = gameState.crystalsPerClick || 1;
-        crystalsPerSecond = gameState.crystalsPerSecond || 0;
+        tatecoins = gameState.tatecoins || 0; // Updated
+        tatecoinsPerClick = gameState.tatecoinsPerClick || 1; // Updated
+        tatecoinsPerSecond = gameState.tatecoinsPerSecond || 0; // Updated
         
         if (gameState.lastSaved) {
             const timeAway = (Date.now() - gameState.lastSaved) / 1000;
-            const offlineGains = timeAway * crystalsPerSecond;
-            crystals += offlineGains;
+            const offlineGains = timeAway * tatecoinsPerSecond; // Updated
+            tatecoins += offlineGains; // Updated
         }
         
         updateDisplay();
@@ -92,12 +92,12 @@ function loadGame() {
 // Reset game
 function resetGame() {
     if (confirm('Are you sure you want to reset all progress?')) {
-        crystals = 0;
-        crystalsPerClick = 1;
-        crystalsPerSecond = 0;
+        tatecoins = 0; // Updated
+        tatecoinsPerClick = 1; // Updated
+        tatecoinsPerSecond = 0; // Updated
         localStorage.removeItem('spaceMinerSave');
         updateDisplay();
-        infoFlyout.classList.remove('active'); // Close flyout
+        infoFlyout.classList.remove('active');
     }
 }
 
