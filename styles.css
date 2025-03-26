@@ -159,12 +159,12 @@ button:disabled {
     background-color: #4a4a4a;
     text-align: center;
     font-size: 14px;
-    border-radius: 10px 10px 0 0; /* Rounded top corners */
+    border-radius: 10px 10px 0 0;
 }
 
 .large-flyout iframe {
     width: 100%;
-    height: calc(100% - 40px); /* Adjust height to account for header */
+    height: calc(100% - 40px);
     border: none;
 }
 
@@ -190,7 +190,7 @@ button:disabled {
 }
 
 .tab-btn.active {
-    background-color: "5a5a5a;
+    background-color: #5a5a5a;
 }
 
 .tab-content {
@@ -235,4 +235,42 @@ button:disabled {
     flex-direction: row;
     overflow-y: auto;
     max-height: calc(100% - 100px);
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #3a3a3a;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    min-width: 300px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.close:hover {
+    color: #ff5555; /* Red on hover */
 }
