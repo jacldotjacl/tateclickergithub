@@ -23,7 +23,7 @@ body {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: hidden; /* Keep, but we'll manage tooltips */
 }
 
 .header {
@@ -147,8 +147,8 @@ button span:not(.tooltip) {
     border-radius: 5px;
     padding: 10px;
     position: absolute;
-    z-index: 100; /* High priority */
-    top: -70px; /* Moved higher to avoid overlap */
+    z-index: 100;
+    top: -60px; /* Slightly less extreme, but clear of button */
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -160,6 +160,11 @@ button span:not(.tooltip) {
 button:hover .tooltip {
     visibility: visible;
     opacity: 1;
+}
+
+/* Ensure tooltips aren't clipped by parent */
+#workers-container, #upgrades-container {
+    position: relative; /* Ensure tooltips can escape */
 }
 
 .tooltip p {
@@ -182,7 +187,8 @@ button:hover .tooltip {
     background: #ffffff;
     border-radius: 5px;
     border: none;
-    z-index: 10; /* Keep below tooltip */
+    z-index: 10;
+    min-width: 0;
 }
 
 #info-btn {
@@ -190,7 +196,7 @@ button:hover .tooltip {
 }
 
 #snake-btn {
-    right: 70px;
+    right: 70px; /* Distinct position */
 }
 
 #info-btn img, #snake-btn img {
@@ -362,7 +368,7 @@ button:hover .tooltip {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000; /* Higher than tooltip */
+    z-index: 1000;
 }
 
 .modal-content {
