@@ -23,7 +23,7 @@ body {
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Keep, but we'll manage tooltips */
+    overflow: hidden;
 }
 
 .header {
@@ -32,6 +32,7 @@ body {
     align-items: flex-start;
     margin-bottom: 20px;
     flex-shrink: 0;
+    z-index: 5; /* Below tooltip */
 }
 
 .header h1 {
@@ -147,8 +148,8 @@ button span:not(.tooltip) {
     border-radius: 5px;
     padding: 10px;
     position: absolute;
-    z-index: 100;
-    top: -60px; /* Slightly less extreme, but clear of button */
+    z-index: 200; /* Above all but modal */
+    top: -100px; /* Higher to clear header/tabs */
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -160,11 +161,6 @@ button span:not(.tooltip) {
 button:hover .tooltip {
     visibility: visible;
     opacity: 1;
-}
-
-/* Ensure tooltips aren't clipped by parent */
-#workers-container, #upgrades-container {
-    position: relative; /* Ensure tooltips can escape */
 }
 
 .tooltip p {
@@ -196,7 +192,7 @@ button:hover .tooltip {
 }
 
 #snake-btn {
-    right: 70px; /* Distinct position */
+    right: 70px;
 }
 
 #info-btn img, #snake-btn img {
@@ -220,6 +216,7 @@ button:hover .tooltip {
     visibility: hidden;
     min-width: 200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 150; /* Above tooltip but below modal */
 }
 
 .flyout.active {
@@ -266,6 +263,7 @@ button:hover .tooltip {
     gap: 10px;
     margin-bottom: 20px;
     flex-shrink: 0;
+    z-index: 5; /* Below tooltip */
 }
 
 .tab-btn {
@@ -300,6 +298,7 @@ button:hover .tooltip {
     font-size: clamp(1.2rem, 3vw, 2rem);
     margin: 0 0 20px 0;
     flex-shrink: 0;
+    z-index: 5; /* Below tooltip */
 }
 
 #workers-container, #upgrades-container {
@@ -316,6 +315,7 @@ button:hover .tooltip {
     white-space: nowrap;
     align-self: center;
     margin-top: 10px;
+    position: relative; /* Tooltip context */
 }
 
 /* Customize horizontal scrollbar */
@@ -368,7 +368,7 @@ button:hover .tooltip {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 1000; /* Topmost */
 }
 
 .modal-content {
